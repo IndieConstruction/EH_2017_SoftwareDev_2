@@ -10,7 +10,7 @@ public class Enemy {
         EnemiesCounter = EnemiesCounter + 1;
         Life = EnemyHelper.GetInitialLifeByElementType(enemyClass);
         
-
+        
         switch (enemyClass) {
             case EnemyClass.orco:
                 // ........... Orco

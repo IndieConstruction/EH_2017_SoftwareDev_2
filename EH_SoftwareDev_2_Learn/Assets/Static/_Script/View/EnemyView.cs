@@ -22,11 +22,15 @@ public class EnemyView : MonoBehaviour {
         }
     }
 
+    void Awake() {
+        Debug.Log("Awake On Disabled");
+    }
 
     // Use this for initialization
     void Start () {
 	    EnemyModel = new Enemy(Class);
         LifeLable.text = EnemyModel.Life.ToString();
+        Debug.Log(GameManager.instance.GameInfo());
 	}
 	
 	// Update is called once per frame

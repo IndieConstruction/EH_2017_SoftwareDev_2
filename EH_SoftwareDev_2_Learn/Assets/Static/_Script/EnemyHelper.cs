@@ -1,4 +1,6 @@
-﻿public class EnemyHelper {
+﻿using UnityEngine;
+
+public class EnemyHelper {
 
     static int baseLif = 0;
     int baseExp = 1;
@@ -13,6 +15,7 @@
                 return baseLif;
         }
     }
+
 
     public  int GetExp() {
         return baseExp;
