@@ -33,6 +33,6 @@ public class GamePlayManager : MonoBehaviour {
     /// Setta il round
     /// </summary>
     void SetUpRound() {
-        Debug.Log("Setup Round");
+        
     }
 }
