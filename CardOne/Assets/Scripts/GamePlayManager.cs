@@ -1,13 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GamePlayManager : MonoBehaviour {
+
+
+	public static GamePlayManager gpm;
+	public int CurrentRound ;
+	Player currentPLayer;
+	public List <Player> Players;
+
+
+	void Awake(){
+
+		if (gpm == null)
+			gpm = this;
+	}
 
     void Start() {
 
         SetUpPlayers();
         SetUpBoard();
-        SetUpCards();
+        SetUpCards();//
         SetUpRound();
     }
 
@@ -16,6 +30,11 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
 	void SetUpPlayers() {
         Debug.Log("Setup Players");
+		//foreach (Player p in players) {
+			//currentPLayer.Life = 20;
+			//currentPLayer.Mana = CurrentRound;
+		//}
+
     }
     /// <summary>
     /// Setta il tavolo
@@ -34,5 +53,46 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
     void SetUpRound() {
         Debug.Log("Setup Round");
+		CurrentRound++;
+		currentPLayer = RandomPlayer ();
+		currentPLayer.MyTurn = true;
+		if (CurrentRound == 1) {
+			DealCards (4);
+		} 
+		else {
+			DealCards (1);
+		}
+		foreach (Player p in Players) {
+			p.Mana = CurrentRound;		}
     }
+
+	public Player RandomPlayer()
+	{
+		int randomInd = Random.Range(0, Players.Count);
+		return Players[randomInd];
+
+	
+	}
+
+	public void StrategicPhase(){
+	
+		if (gpm.Players[0].MyTurn)
+		{
+			gpm.Players[0].MyTurn = false;
+			gpm.Players[1].MyTurn = true;
+
+		}
+		else if (gpm.Players[1].MyTurn)
+		{
+			gpm.Players[1].MyTurn = false;
+			gpm.Players[0].MyTurn = true;
+		}
+
+	}
+
+	void DealCards (int numberOfCards){
+		//dai carte
+	}
+
+
 }
