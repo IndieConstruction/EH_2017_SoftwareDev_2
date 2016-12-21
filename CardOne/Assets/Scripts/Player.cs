@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 	public int Mana;
 	public int Life;
 	public bool MyTurn;
+	public CardsList MyDeck;
 	
 	void Awake (){
 		
