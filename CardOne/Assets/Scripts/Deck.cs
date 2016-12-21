@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+	public static void DealCards(int numberOfCards, Player currentPLayer)
+	{
 		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		List<Card> CurrentPack = new List<Card>();
+		CurrentPack = currentPLayer.MyDeck.CardPack;
+		for (int i = 0; i < numberOfCards; i++) {
+			int rand = Random.Range (0, CurrentPack.Count);
+			Debug.Log (CurrentPack [rand]);
+			CurrentPack.Remove (CurrentPack [rand]);
+		}
 	}
 }

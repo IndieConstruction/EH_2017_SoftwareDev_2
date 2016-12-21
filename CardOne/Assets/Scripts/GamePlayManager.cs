@@ -46,6 +46,7 @@ public class GamePlayManager : MonoBehaviour {
     /// Setta le carte
     /// </summary>
     void SetUpCards() {
+		
         Debug.Log("Setup Cards");
     }
     /// <summary>
@@ -57,10 +58,10 @@ public class GamePlayManager : MonoBehaviour {
 		currentPLayer = RandomPlayer ();
 		currentPLayer.MyTurn = true;
 		if (CurrentRound == 1) {
-			DealCards (4);
+			Deck.DealCards(4,currentPLayer);
 		} 
 		else {
-			DealCards (1);
+			Deck.DealCards (1,currentPLayer);
 		}
 		foreach (Player p in Players) {
 			p.Mana = CurrentRound;		}
@@ -90,9 +91,9 @@ public class GamePlayManager : MonoBehaviour {
 
 	}
 
-	void DealCards (int numberOfCards){
+	//void DealCards (int numberOfCards){
 		//dai carte
-	}
+	//}
 
 
 }
