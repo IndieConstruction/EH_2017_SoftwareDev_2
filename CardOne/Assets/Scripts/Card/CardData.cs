@@ -8,10 +8,13 @@ public class CardData : ScriptableObject {
     public int ManaCost;
     public int Life;
     public int Attack;
-    public Slot SlotType;
+    public TerrainTypes SlotType;
 }
-
+/// <summary>
+/// Enumeratore che definisce i tipi di carte.
+/// </summary>
 public enum CardType {
     Base,
     Effect,
 }
+

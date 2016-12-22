@@ -17,7 +17,7 @@ public class GamePlayManager : MonoBehaviour {
 	}
 
     void Start() {
-        GameLevel levelToLoad = GetLevelInfo(2);
+        GameLevelData levelToLoad = GetLevelInfo("1.2");
         SetUpPlayers(levelToLoad);
         SetUpBoard(levelToLoad);
         SetUpCards(levelToLoad);
@@ -27,7 +27,7 @@ public class GamePlayManager : MonoBehaviour {
     /// <summary>
     /// Setta i players
     /// </summary>
-	void SetUpPlayers(GameLevel _gameLeveldata) {
+	void SetUpPlayers(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Players");
 		//foreach (Player p in players) {
 			//currentPLayer.Life = 20;
@@ -38,36 +38,22 @@ public class GamePlayManager : MonoBehaviour {
     /// <summary>
     /// Setta il tavolo
     /// </summary>
-    void SetUpBoard(GameLevel _gameLeveldata) {
+    void SetUpBoard(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Board");
-        foreach (BoardCol col in _gameLeveldata.Cols) {
-            switch (col.ColType) {
-                case 0:
-                    // base
-                    break;
-                case 1:
-                    // Acqua
-                    break;
-                case 2:
-                    // Sopraelevato
-                    break;
-                default:
-                    // Non utilizzato
-                    break;
-            }
-        }
+       
+        
     }
     /// <summary>
     /// Setta le carte
     /// </summary>
-    void SetUpCards(GameLevel _gameLeveldata) {
+    void SetUpCards(GameLevelData _gameLeveldata) {
         Debug.LogFormat("Setup Cards {0}", _gameLeveldata.AllCards.Count);
 
     }
     /// <summary>
     /// Setta il round
     /// </summary>
-    void SetUpRound(GameLevel _gameLeveldata) {
+    void SetUpRound(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Round");
 		CurrentRound++;
 		currentPLayer = RandomPlayer ();
@@ -110,84 +96,40 @@ public class GamePlayManager : MonoBehaviour {
 		//dai carte
 	}
 
+    
+    GameLevelData GetLevelInfo(string _levelId) {
+        // Creo oggetto riempire e restutire
+        GameLevelData returnGameLevel = new GameLevelData();
 
-    int GetInitialCardNumberFromDifficultyLevel(int _levelId) {
-        switch (_levelId) {
-            case 1:
-                return 5;
-            case 2:
-                return 4;
-            case 3:
-                return 3;
-        }
-
-        return 0;
-    }
-
-
-    GameLevel GetLevelInfo(int _levelId) {
-        GameLevel returnGameLevel = new GameLevel();
-        switch (_levelId) {
-            case 1:
-                returnGameLevel = new GameLevel() {
-                    StartNumberOfCards = 5,
-                    Cols = new List<BoardCol>() {
-                                             new BoardCol() { ColType = -1 },
-                                             new BoardCol() { ColType = 0 },
-                                             new BoardCol() { ColType = 0 },
-                                             new BoardCol() { ColType = 0 },
-                                             new BoardCol() { ColType = -1 },
-                                         }
-                };
-                break;
-            case 2:
-                returnGameLevel = new GameLevel() {
-                    StartNumberOfCards = 4,
-                    Cols = new List<BoardCol>() {
-                                             new BoardCol() { ColType = 0 },
-                                             new BoardCol() { ColType = 0 },
-                                             new BoardCol() { ColType = 0 },
-                                             new BoardCol() { ColType = 0 },
-                                             new BoardCol() { ColType = 0 },
-                                          }
-                };
-                break;
-            case 3:
-                returnGameLevel = new GameLevel() {
-                    StartNumberOfCards = 2,
-                    Cols = new List<BoardCol>() {
-                                             new BoardCol() { ColType = 1 },
-                                             new BoardCol() { ColType = 0 },
-                                             new BoardCol() { ColType = 0 },
-                                             new BoardCol() { ColType = 0 },
-                                             new BoardCol() { ColType = 2 },
-                                         },
-                    ThemePrefix = "Disco",
-                };
-                break;
-            default:
-                returnGameLevel = new GameLevel();
-                break;
+        GameLevelData[] allLevels = Resources.LoadAll<GameLevelData>("Levels");
+        foreach (GameLevelData levelData in allLevels) {
+            if (levelData.Id == _levelId)
+                returnGameLevel = levelData;
         }
 
         returnGameLevel.AllCards = CardManager.GetAllCards();
 
+        //switch (_levelId) {
+        //    case 1:
+        //        returnGameLevel = new GameLevel() {
+        //            StartNumberOfCards = 5,
+        //            Cols = new List<BoardCol>() {
+        //                                     new BoardCol() { ColType = -1 },
+        //                                     new BoardCol() { ColType = 0 },
+        //                                     new BoardCol() { ColType = 0 },
+        //                                     new BoardCol() { ColType = 0 },
+        //                                     new BoardCol() { ColType = -1 },
+        //                                 }
+        //        };
+        //        break;
+
+        //    default:
+        //        returnGameLevel = new GameLevel();
+        //        break;
+        //}
+
+
+
         return returnGameLevel;
     }
-
-
-    #region Data Structure for Game Level 
-    public class GameLevel {
-        public int StartNumberOfCards;
-        public List<BoardCol> Cols;
-        public string ThemePrefix;
-        public List<CardData> AllCards;
-    }
-
-    public class BoardCol {
-        public int ColType;
-    }
-    #endregion
-
-
 }
