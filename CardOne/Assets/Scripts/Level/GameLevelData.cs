@@ -10,4 +10,5 @@ public class GameLevelData : ScriptableObject
     public string ThemePrefix;
     [HideInInspector] public List<CardData> AllCards;
     public BoardData Board;
+    [HideInInspector] public List<PlayerData> PlayerList ;
 }

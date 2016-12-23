@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour {
 
-	public static void DealCards(int numberOfCards, Player currentPLayer)
+	public static void DealCards(int numberOfCards, PlayerData currentPLayer)
 	{
 		
 		//List<Card> CurrentPack = new List<Card>();

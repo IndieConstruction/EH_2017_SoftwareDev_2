@@ -6,8 +6,8 @@ public class GamePlayManager : MonoBehaviour {
 
 	public static GamePlayManager gpm;
 	public int CurrentRound ;
-	Player currentPLayer;
-	public List <Player> Players;
+	PlayerData currentPLayer;
+	public List <PlayerData> Players;
 
 
 	void Awake(){
@@ -64,11 +64,11 @@ public class GamePlayManager : MonoBehaviour {
 		else {
 			DealCards (1);
 		}
-		foreach (Player p in Players) {
+		foreach (PlayerData p in Players) {
 			p.Mana = CurrentRound;		}
     }
 
-	public Player RandomPlayer()
+	public PlayerData RandomPlayer()
 	{
 		int randomInd = Random.Range(0, Players.Count);
 		return Players[randomInd];

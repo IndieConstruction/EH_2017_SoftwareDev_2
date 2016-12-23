@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class Board {
+public class BoardView
+{
     public List<Column> Colums;
 }
 
