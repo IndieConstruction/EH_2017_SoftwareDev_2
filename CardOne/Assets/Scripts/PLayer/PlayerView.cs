@@ -11,7 +11,7 @@ public class PlayerView : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GamePlayManager.gpm.Players.Add (this);//mhhhhhh mi sono perso il player
+		
 	}
 	
 	// Update is called once per frame

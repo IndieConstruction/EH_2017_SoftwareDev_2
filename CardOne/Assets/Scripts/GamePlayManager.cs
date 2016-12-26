@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class GamePlayManager : MonoBehaviour {
 
@@ -29,6 +30,7 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
 	void SetUpPlayers(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Players");
+        Players = FindObjectsOfType<PlayerData>().ToList();
 		//foreach (Player p in players) {
 			//currentPLayer.Life = 20;
 			//currentPLayer.Mana = CurrentRound;
