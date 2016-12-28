@@ -8,7 +8,11 @@ public class GamePlayManager : MonoBehaviour {
 	public static GamePlayManager gpm;
 	public int CurrentRound ;
 	PlayerData currentPLayer;
-	public List <PlayerData> Players;
+
+    public static List<PlayerData> Players() {
+     PlayerData[] allPlayer = Resources.LoadAll<PlayerData>("Players");
+      return allPlayer.ToList<PlayerData>();
+ }
 
 
 	void Awake(){
@@ -25,16 +29,18 @@ public class GamePlayManager : MonoBehaviour {
         SetUpRound(levelToLoad);
     }
 
+   
+
     /// <summary>
     /// Setta i players
     /// </summary>
 	void SetUpPlayers(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Players");
-        Players = FindObjectsOfType<PlayerData>().ToList();
-		//foreach (Player p in players) {
-			//currentPLayer.Life = 20;
-			//currentPLayer.Mana = CurrentRound;
-		//}
+       
+        //foreach (Player p in players) {
+        //currentPLayer.Life = 20;
+        //currentPLayer.Mana = CurrentRound;
+        //}
 
     }
     /// <summary>
@@ -42,8 +48,8 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
     void SetUpBoard(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Board");
-       
-        
+        Debug.Log("il level data e" + _gameLeveldata.Id);
+
     }
     /// <summary>
     /// Setta le carte
@@ -66,31 +72,31 @@ public class GamePlayManager : MonoBehaviour {
 		else {
 			DealCards (1);
 		}
-		foreach (PlayerData p in Players) {
+		foreach (PlayerData p in Players()) {
 			p.Mana = CurrentRound;		}
     }
 
 	public PlayerData RandomPlayer()
 	{
-		int randomInd = Random.Range(0, Players.Count);
-		return Players[randomInd];
+		int randomInd = Random.Range(0, Players().Count);
+		return Players()[randomInd];
 
 	
 	}
 
 	public void StrategicPhase(){
 	
-		if (gpm.Players[0].MyTurn)
-		{
-			gpm.Players[0].MyTurn = false;
-			gpm.Players[1].MyTurn = true;
+		//if (gpm.Players().MyTurn)
+		//{
+		//	gpm.Players[0].MyTurn = false;
+		//	gpm.Players[1].MyTurn = true;
 
-		}
-		else if (gpm.Players[1].MyTurn)
-		{
-			gpm.Players[1].MyTurn = false;
-			gpm.Players[0].MyTurn = true;
-		}
+		//}
+		//else if (gpm.Players[1].MyTurn)
+		//{
+		//	gpm.Players[1].MyTurn = false;
+		//	gpm.Players[0].MyTurn = true;
+		//}
 
 	}
 

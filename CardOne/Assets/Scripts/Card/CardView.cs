@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CardView : MonoBehaviour {
 
     public CardData Data;
+    public Text PlayerLifeText;
+    public Text ManaCostText;
+    public Text AttackText;
+    public SpriteRenderer ImageToLoad;
 
     /// <summary>
     /// Init dei dati.
@@ -23,7 +28,13 @@ public class CardView : MonoBehaviour {
         /// - Visualizzare la life
         /// - Attack
         /// ...
-        
+        if (ImageToLoad.ToString() == Data.ID)
+        {
+            AttackText.text = Data.Attack.ToString();
+            ManaCostText.text = Data.ManaCost.ToString();
+            PlayerLifeText.text = Data.Life.ToString();
+            ImageToLoad = Data.CardSprite;
+        }
     }
 }
 
