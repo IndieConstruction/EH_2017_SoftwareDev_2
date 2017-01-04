@@ -7,7 +7,7 @@ public class CardManager : MonoBehaviour
     
     public PlayerView[] players;
     public List<Deck> decks;
-    public List<CardView> cardsView;
+    public CardView cardView;
     public static List<CardData> GetAllCards() { 
         CardData[] allCards = Resources.LoadAll<CardData>("Cards");
         return allCards.ToList<CardData>();
@@ -64,19 +64,16 @@ public class CardManager : MonoBehaviour
     public void GiveCards(int numberOfCards) {
         
         
-        foreach (PlayerView pitem in players)
+        foreach (PlayerView pv in players)
         {
-            List<CardData> cardsData =pitem.GetComponentInChildren<Deck>().cards;
-            int randomIndex = Random.Range(0, cardsData.Count);
+            
 
             for (int n = 0; n < numberOfCards; n++)
             {
-                for (int i = 0; i < cardsView.Count; i++)
-                {
-                    if (cardsView[i].IdCard == cardsData[randomIndex].ID)
-                        cardsView[i].InitGraphic();
-                        //Debug.Log("ciao");
-                } 
+                List<CardData> cardsData = pv.GetComponentInChildren<Deck>().cards;
+                int randomIndex = Random.Range(0, cardsData.Count);
+                Instantiate(cardView.gameObject, pv.transform);
+                cardView.Init(cardsData[randomIndex]);
             }
 
         }

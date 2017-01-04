@@ -6,10 +6,7 @@ using System.Linq;
 public class CardView : MonoBehaviour {
     public CardManager cm;
     public CardData Data;
-    private Text LifeText;
-    private Text ManaCostText;
-    private Text AttackText;
-    public SpriteRenderer ImageToLoad;
+    private SpriteRenderer ImageToLoad;
     public string IdCard;
  
 
@@ -19,7 +16,7 @@ public class CardView : MonoBehaviour {
     /// <param name="_cardData"></param>
     public void Init(CardData _cardData) {
         Data = _cardData;
-        InitGraphic();
+        InitGraphic(_cardData);
     }
 
     /// <summary>
@@ -29,12 +26,15 @@ public class CardView : MonoBehaviour {
     private void Awake()
     {
         cm = FindObjectOfType<CardManager>();
-       cm.cardsView.Add(this);
+       
     }
-    public void InitGraphic()
+    public void InitGraphic(CardData c)
     {
-
-           Debug.Log("initgraphic");
+        gameObject.GetComponentsInChildren<TextMesh>()[0].text = c.Life.ToString();
+        gameObject.GetComponentsInChildren<TextMesh>()[1].text = c.Attack.ToString();
+        gameObject.GetComponentsInChildren<TextMesh>()[2].text = c.ManaCost.ToString();
+       // gameObject.GetComponentsInChildren<SpriteRenderer>()[3].sprite = c.CardSprite.sprite;
+      
 
     }
 }
