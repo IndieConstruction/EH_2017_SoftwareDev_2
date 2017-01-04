@@ -8,7 +8,8 @@ public class GamePlayManager : MonoBehaviour {
 	public static GamePlayManager gpm;
 	public int CurrentRound ;
 	PlayerData currentPLayer;
-
+    CardManager cm;
+   
     public static List<PlayerData> Players() {
      PlayerData[] allPlayer = Resources.LoadAll<PlayerData>("Players");
       return allPlayer.ToList<PlayerData>();
@@ -16,12 +17,17 @@ public class GamePlayManager : MonoBehaviour {
 
 
 	void Awake(){
-
-		if (gpm == null)
-			gpm = this;
+        if (gpm == null)
+            gpm = this;
+        cm = FindObjectOfType<CardManager>();
+       
+		
 	}
 
     void Start() {
+        
+       
+
         GameLevelData levelToLoad = GetLevelInfo("1.2");
         SetUpPlayers(levelToLoad);
         SetUpBoard(levelToLoad);
@@ -56,8 +62,12 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
     void SetUpCards(GameLevelData _gameLeveldata) {
         Debug.LogFormat("Setup Cards {0}", _gameLeveldata.AllCards.Count);
-
+        cm.GiveCardsToDecks(2);
+        cm.GiveDeck();
+        cm.GiveCards(2);
     }
+
+
     /// <summary>
     /// Setta il round
     /// </summary>
@@ -140,4 +150,5 @@ public class GamePlayManager : MonoBehaviour {
 
         return returnGameLevel;
     }
+    
 }

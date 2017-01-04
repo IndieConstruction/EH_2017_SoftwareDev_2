@@ -4,9 +4,9 @@ using System.Collections.Generic;
 public class PlayerView : MonoBehaviour {
 
     public PlayerData playerData;
-
+    public string id;
     void Awake (){
-		
+        
 	}
 
 	// Use this for initialization

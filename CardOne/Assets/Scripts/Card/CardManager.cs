@@ -2,9 +2,15 @@
 using System.Linq;
 using System.Collections.Generic;
 
-public class CardManager {
-
-    public static List<CardData> GetAllCards() {
+public class CardManager : MonoBehaviour
+{
+    
+    public PlayerView[] players;
+    public List<Deck> decks;
+    public List<CardView> cardsView;
+    public static List<CardData> GetAllCards() { 
+        CardData[] allCards = Resources.LoadAll<CardData>("Cards");
+        return allCards.ToList<CardData>();
         // Vecchio sistema con creazione manuale dei dati.
         //return new List<CardData>() {
         //    new CardData() { ID = "Monster1", ManaCost = 1, Type = CardType.Base, SlotType = Slot.Terrain, Life = 1, Attack = 1 },
@@ -15,9 +21,64 @@ public class CardManager {
         // L'arrayList della classe Cardata va a pescare 
         //          i dati(scriptableObject) nella directory tramite
         //          la lettura delle risorse(Resources)
-        CardData[] allCards = Resources.LoadAll<CardData>("Cards");
-        return allCards.ToList<CardData>();
-
     }
 
+    private void Awake()
+    {
+        
+        players = FindObjectsOfType<PlayerView>();
+    }
+    /// <summary>
+    /// assegna le carte ai mazzi 
+    /// </summary>
+    public void GiveCardsToDecks(int numberOfCards) {
+
+        for (int i = 0; i < GetAllCards().Count; i++)
+        {
+            if (i < numberOfCards)
+            {
+                decks[0].cards.Add(GetAllCards()[i]);
+            }
+
+            if (i >= numberOfCards)
+            {
+                decks[1].cards.Add(GetAllCards()[i]);
+            }
+        }
+    }
+    /// <summary>
+    /// Gives the decks to the players
+    /// </summary>
+    public void GiveDeck()
+    {
+
+        foreach (PlayerView p in players)
+        {
+            for (int i = 0; i < decks.Count; i++)
+            {
+                if (p.id == decks[i].id)
+                    decks[i].gameObject.transform.SetParent(p.transform);
+            }
+        }
+    }
+    public void GiveCards(int numberOfCards) {
+        
+        
+        foreach (PlayerView pitem in players)
+        {
+            List<CardData> cardsData =pitem.GetComponentInChildren<Deck>().cards;
+            int randomIndex = Random.Range(0, cardsData.Count);
+
+            for (int n = 0; n < numberOfCards; n++)
+            {
+                for (int i = 0; i < cardsView.Count; i++)
+                {
+                    if (cardsView[i].IdCard == cardsData[randomIndex].ID)
+                        cardsView[i].InitGraphic();
+                        //Debug.Log("ciao");
+                } 
+            }
+
+        }
+    }
 }
