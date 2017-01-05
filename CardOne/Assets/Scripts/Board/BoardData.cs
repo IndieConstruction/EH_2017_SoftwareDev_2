@@ -7,7 +7,10 @@ using System.Collections.Generic;
 [System.Serializable]
 public class BoardData {
     public List<Column> ColumnList = new List<Column> (5);
-
+    public SpriteRenderer Empty_image;
+    public SpriteRenderer Elevated_image;
+    public SpriteRenderer Water_image;
+    public SpriteRenderer Ground_image;
 }
 
 /// <summary>

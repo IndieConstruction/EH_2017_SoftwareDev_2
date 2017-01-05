@@ -5,5 +5,5 @@ using System.Collections;
 public class Column {
 
     public TerrainTypes terrainType;
-	
+    public GameObject[] spawnPoints;
 }

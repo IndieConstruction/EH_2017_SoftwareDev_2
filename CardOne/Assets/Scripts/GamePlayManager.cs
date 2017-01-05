@@ -60,7 +60,7 @@ public class GamePlayManager : MonoBehaviour {
         Debug.LogFormat("Setup Cards {0}", _gameLeveldata.AllCards.Count);
         cm.GiveCardsToDecks(2);
         cm.GiveDeck();
-        cm.GiveCards(2);
+        
     }
 
 
@@ -73,11 +73,11 @@ public class GamePlayManager : MonoBehaviour {
 		currentPLayer = RandomPlayer ();
 		currentPLayer.MyTurn = true;
 		if (CurrentRound == 1) {
-			DealCards (_gameLeveldata.StartNumberOfCards);
-		} 
+            cm.GiveCards(4);
+        } 
 		else {
-			DealCards (1);
-		}
+            cm.GiveCards(1);
+        }
 		foreach (PlayerData p in Players()) {
 			p.Mana = CurrentRound;		}
     }
@@ -106,9 +106,7 @@ public class GamePlayManager : MonoBehaviour {
 
 	}
 
-	void DealCards (int numberOfCards){
-		//dai carte
-	}
+
 
     
     GameLevelData GetLevelInfo(string _levelId) {
