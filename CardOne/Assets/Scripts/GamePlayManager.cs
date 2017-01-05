@@ -11,23 +11,19 @@ public class GamePlayManager : MonoBehaviour {
     CardManager cm;
    
     public static List<PlayerData> Players() {
-     PlayerData[] allPlayer = Resources.LoadAll<PlayerData>("Players");
-      return allPlayer.ToList<PlayerData>();
- }
+                PlayerData[] allPlayer = Resources.LoadAll<PlayerData>("Players");
+                return allPlayer.ToList<PlayerData>();
+                }
 
 
 	void Awake(){
         if (gpm == null)
             gpm = this;
         cm = FindObjectOfType<CardManager>();
-       
-		
 	}
 
     void Start() {
         
-       
-
         GameLevelData levelToLoad = GetLevelInfo("1.2");
         SetUpPlayers(levelToLoad);
         SetUpBoard(levelToLoad);
