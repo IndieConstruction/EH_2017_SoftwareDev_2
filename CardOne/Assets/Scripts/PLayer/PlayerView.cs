@@ -9,29 +9,20 @@ public class PlayerView : MonoBehaviour {
         
 	}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public void Init(PlayerData _playerData)
     {
         playerData = _playerData;
-        InitGraphic();
+        InitGraphic(_playerData);
     }
 
-    public void InitGraphic()
+    public void InitGraphic(PlayerData pd)
     {
         /// TODO: PLayerView InitGraphic
-        /// - Visualizzare la label con l'id del PLayer
-        /// - Visualizzare la life
-        /// - Attack
-        /// ...
+      
+        gameObject.GetComponentsInChildren<TextMesh>()[0].text = pd.Life.ToString();
+        gameObject.GetComponentsInChildren<TextMesh>()[1].text = pd.Mana.ToString();
+        /// gameObject.GetComponentsInChildren<SpriteRenderer>()[2].sprite = pd.PlayerSprite.sprite;
 
     }
 }

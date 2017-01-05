@@ -7,7 +7,7 @@ public class BoardView : MonoBehaviour{
     public BoardData Data;
     public List<Column> Colums;
     public SpriteRenderer RendererToLoad;
-    //public SpriteRenderer Empry;
+    //public SpriteRenderer Empty;
     //public SpriteRenderer Elevated;
     //public SpriteRenderer Water;
     //public SpriteRenderer Ground;
@@ -17,11 +17,7 @@ public class BoardView : MonoBehaviour{
         InitGraphic(0);
     }
     public void InitGraphic(int _spriteToLoad) {
-        /// TODO: CardView InitGraphic
-        /// - Visualizzare la label con l'id della carta
-        /// - Visualizzare la life
-        /// - Attack
-        /// ...
+     
     }
 
     }

@@ -7,5 +7,6 @@ public class PlayerData : ScriptableObject{
     public int Mana;
     public int Life;
     public bool MyTurn;
+    public SpriteRenderer PlayerSprite;
 
 }

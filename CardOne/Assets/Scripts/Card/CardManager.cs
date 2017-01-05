@@ -73,6 +73,7 @@ public class CardManager : MonoBehaviour
                 List<CardData> cardsData = pv.GetComponentInChildren<Deck>().cards;
                 int randomIndex = Random.Range(0, cardsData.Count);
                 Instantiate(cardView.gameObject, pv.transform);
+                cardView.gameObject.transform.position = new Vector3(0, pv.transform.position.y, 0);
                 cardView.Init(cardsData[randomIndex]);
             }
 
