@@ -8,6 +8,8 @@ public class CardManager : MonoBehaviour
     public PlayerView[] players;
     public List<Deck> decks;
     public CardView cardView;
+
+   
     public static List<CardData> GetAllCards() { 
         CardData[] allCards = Resources.LoadAll<CardData>("Cards");
         return allCards.ToList<CardData>();
@@ -72,11 +74,21 @@ public class CardManager : MonoBehaviour
             {
                 List<CardData> cardsData = pv.GetComponentInChildren<Deck>().cards;
                 int randomIndex = Random.Range(0, cardsData.Count);
-                Instantiate(cardView.gameObject, pv.transform);
-                cardView.gameObject.transform.position = new Vector3(0, pv.transform.position.y, 0);
+
+                // Instantiate(cardView, pv.transform);
+                pv.cardsInScene.Add(cardView);
+                //cardView.gameObject.transform.position = new Vector3(0, pv.transform.position.y, 0);
+              
                 cardView.Init(cardsData[randomIndex]);
             }
+            for (int i = 0; i < pv.cardsInScene.Count; i++)
+            {
 
+                Instantiate(pv.cardsInScene[i].gameObject, pv.cardsSpawnPoints[i].transform.position, pv.cardsInScene[i].transform.rotation);
+
+            }
         }
     }
-}
+  
+    }
+

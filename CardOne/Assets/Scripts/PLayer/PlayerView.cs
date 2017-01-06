@@ -3,6 +3,12 @@ using System.Collections.Generic;
 
 public class PlayerView : MonoBehaviour {
 
+    #region prova
+    public List<CardView> cardsInScene;
+    public GameObject[] cardsSpawnPoints;
+    #endregion
+
+
     public PlayerData playerData;
     public string id;
     void Awake (){
