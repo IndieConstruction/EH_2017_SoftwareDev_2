@@ -8,7 +8,8 @@ public class CardData : ScriptableObject {
     public int ManaCost;
     public int Life;
     public int Attack;
-    public SpriteRenderer CardSprite;
+    //public SpriteRenderer CardSprite;
+    public string ImageToLoad;
     public TerrainTypes SlotType;
 }
 /// <summary>

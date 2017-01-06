@@ -5,8 +5,8 @@ using System.Linq;
 
 public class CardView : MonoBehaviour {
     public CardManager cm;
-    public CardData Data;
-    private SpriteRenderer ImageToLoad;
+    [HideInInspector] public CardData Data;
+    
     public string IdCard;
  
 
@@ -33,8 +33,9 @@ public class CardView : MonoBehaviour {
         gameObject.GetComponentsInChildren<TextMesh>()[0].text = c.Life.ToString();
         gameObject.GetComponentsInChildren<TextMesh>()[1].text = c.Attack.ToString();
         gameObject.GetComponentsInChildren<TextMesh>()[2].text = c.ManaCost.ToString();
-       // gameObject.GetComponentsInChildren<SpriteRenderer>()[3].sprite = c.CardSprite.sprite;
-      
+        //gameObject.GetComponentsInChildren<SpriteRenderer>()[3].sprite = Resources.Load(Data.ImageToLoad, typeof(Sprite)) as Sprite;
+        
+
 
     }
 }
