@@ -5,14 +5,22 @@ public class PlayerView : MonoBehaviour {
 
     #region prova
     public List<CardView> cardsInScene;
-    public GameObject[] cardsSpawnPoints;
+    public List<SpawnPoint> cardsSpawnPoints;
     #endregion
 
 
     public PlayerData playerData;
     public string id;
     void Awake (){
-        
+        SpawnPoint[] spawn = FindObjectsOfType<SpawnPoint>();
+        for (int i = 0; i < spawn.Length; i++)
+        {
+            if (id == spawn[i].id)
+            {
+                cardsSpawnPoints.Add(spawn[i]);
+            }
+
+        }
 	}
 
 

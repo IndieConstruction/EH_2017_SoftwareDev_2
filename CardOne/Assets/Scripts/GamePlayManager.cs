@@ -14,7 +14,7 @@ public class GamePlayManager : MonoBehaviour {
                 PlayerData[] allPlayer = Resources.LoadAll<PlayerData>("Players");
                 return allPlayer.ToList<PlayerData>();
                 }
-
+ 
 
 	void Awake(){
         if (gpm == null)
@@ -38,11 +38,12 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
 	void SetUpPlayers(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Players");
-       
+
         //foreach (Player p in players) {
         //currentPLayer.Life = 20;
         //currentPLayer.Mana = CurrentRound;
         //}
+       
 
     }
     /// <summary>
