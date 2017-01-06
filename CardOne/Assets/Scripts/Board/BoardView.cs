@@ -6,12 +6,12 @@ using System.Collections.Generic;
 public class BoardView : MonoBehaviour{
     public BoardData Data;
     public List<Column> Columns;
-    public SpriteRenderer RendererToLoad;
-    //public SpriteRenderer Empty;
-    //public SpriteRenderer Elevated;
-    //public SpriteRenderer Water;
-    //public SpriteRenderer Ground;
+    public TerrainTypes TerrainType;
 
+    private void Awake()
+    {
+        Init(Data);
+    }
     public void Init(BoardData _boardData){
         Data = _boardData;
         InitGraphic(_boardData);
@@ -19,16 +19,17 @@ public class BoardView : MonoBehaviour{
     }
     public void InitGraphic(BoardData board_d) {
 
-        foreach (Column citem in Columns)
-        {
-            if (citem.terrainType == TerrainTypes.Empty)
-                RendererToLoad = board_d.Empty_image;
-            if (citem.terrainType == TerrainTypes.Elevated)
-                RendererToLoad = board_d.Elevated_image;
-            if (citem.terrainType == TerrainTypes.Water)
-                RendererToLoad = board_d.Water_image;
-            if (citem.terrainType == TerrainTypes.Ground)
-                RendererToLoad = board_d.Ground_image;
+        if (TerrainType == TerrainTypes.Empty){
+            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Empty_512x512_Tex", typeof(Sprite)) as Sprite;
+        }
+        if (TerrainType == TerrainTypes.Elevated){
+            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Elevated_512x512_Tex", typeof(Sprite)) as Sprite;
+        }
+        if (TerrainType == TerrainTypes.Water){
+            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Water_512x512_Tex", typeof(Sprite)) as Sprite;
+        }
+        if (TerrainType == TerrainTypes.Ground){
+            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Ground_512x512_Tex", typeof(Sprite)) as Sprite;
         }
     }
 

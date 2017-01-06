@@ -4,15 +4,14 @@ using System.Collections.Generic;
 /// <summary>
 /// Classe che contiene le informazioni riguardanti la board di gioco
 /// </summary>
-[CreateAssetMenu(fileName = "BoardDataInfo", menuName = "Board/BoardData", order = 1)]
 [System.Serializable]
 public class BoardData : ScriptableObject
 {
     public List<Column> ColumnList = new List<Column> (5);
-    public SpriteRenderer Empty_image;
-    public SpriteRenderer Elevated_image;
-    public SpriteRenderer Water_image;
-    public SpriteRenderer Ground_image;
+        //public SpriteRenderer Empty_image;
+        //public SpriteRenderer Elevated_image;
+        //public SpriteRenderer Water_image;
+        //public SpriteRenderer Ground_image;
 }
 
 /// <summary>
