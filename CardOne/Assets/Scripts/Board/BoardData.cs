@@ -18,3 +18,7 @@ public class BoardData : ScriptableObject
 /// Enumeratore che definisce i possibili valori del Terrain type.
 /// </summary>
 public enum TerrainTypes { Empty, Elevated, Water, Ground };
+/// <summary>
+/// Enumeratore che definische dove i player possono posizionare la carta nella board durante la fase strategica
+/// </summary>
+public enum PlayerSlotType{Player1,Player2};

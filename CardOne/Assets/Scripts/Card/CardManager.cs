@@ -25,35 +25,27 @@ public class CardManager : MonoBehaviour
         //          la lettura delle risorse(Resources)
     }
 
-    private void Awake()
-    {
-        
+    private void Awake(){
         players = FindObjectsOfType<PlayerView>();
     }
     /// <summary>
     /// assegna le carte ai mazzi 
     /// </summary>
     public void GiveCardsToDecks(int numberOfCards) {
-
-        for (int i = 0; i < GetAllCards().Count; i++)
-        {
-            if (i < numberOfCards)
-            {
+        for (int i = 0; i < GetAllCards().Count; i++){
+            if (i < numberOfCards){
                 decks[0].cards.Add(GetAllCards()[i]);
             }
-
-            if (i >= numberOfCards)
-            {
+            if (i >= numberOfCards){
                 decks[1].cards.Add(GetAllCards()[i]);
             }
         }
     }
+
     /// <summary>
     /// Gives the decks to the players
     /// </summary>
-    public void GiveDeck()
-    {
-
+    public void GiveDeck(){
         foreach (PlayerView p in players)
         {
             for (int i = 0; i < decks.Count; i++)
@@ -63,32 +55,31 @@ public class CardManager : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// Give the cards to the players
+    /// </summary>
+    /// <param name="numberOfCards"></param>
     public void GiveCards(int numberOfCards) {
-        
-        
-        foreach (PlayerView pv in players)
-        {
-            
 
-            for (int n = 0; n < numberOfCards; n++)
-            {
+        foreach (PlayerView pv in players){
+            for (int n = 0; n < numberOfCards; n++){
                 List<CardData> cardsData = pv.GetComponentInChildren<Deck>().cards;
                 int randomIndex = Random.Range(0, cardsData.Count);
-
                 // Instantiate(cardView, pv.transform);
                 pv.cardsInScene.Add(cardView);
                 //cardView.gameObject.transform.position = new Vector3(0, pv.transform.position.y, 0);
-              
                 cardView.Init(cardsData[randomIndex]);
             }
-            for (int i = 0; i < pv.cardsInScene.Count; i++)
-            {
-
+            for (int i = 0; i < pv.cardsInScene.Count; i++){
                 Instantiate(pv.cardsInScene[i].gameObject, pv.cardsSpawnPoints[i].transform.position, pv.cardsInScene[i].transform.rotation);
-
             }
+         }
         }
+    /// <summary>
+    /// Quando prendo una carte da posizionare nella board,controllo se la posizione in cui il player vuole posizionarla e' corretta.
+    /// </summary>
+    public void DropCardInRightBoardPosition() {
+
     }
-  
     }
 

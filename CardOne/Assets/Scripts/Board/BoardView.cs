@@ -8,6 +8,7 @@ public class BoardView : MonoBehaviour{
     //[HideInInspector] public List<Column> Columns;
     public TerrainTypes TerrainType;
     public string ImageToLoad;
+    public PlayerSlotType CardPositionForPlayer;
 
     private void Awake()
     {
@@ -18,23 +19,18 @@ public class BoardView : MonoBehaviour{
         InitGraphic(_boardData);
 
     }
-    public void InitGraphic(BoardData board_d)
-    {
+    public void InitGraphic(BoardData board_d){
 
-        if (TerrainType == TerrainTypes.Empty)
-        {
+        if (TerrainType == TerrainTypes.Empty){
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load( ImageToLoad , typeof(Sprite)) as Sprite;
         }
-        if (TerrainType == TerrainTypes.Elevated)
-        {
+        if (TerrainType == TerrainTypes.Elevated){
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load(ImageToLoad, typeof(Sprite)) as Sprite;
         }
-        if (TerrainType == TerrainTypes.Water)
-        {
+        if (TerrainType == TerrainTypes.Water){
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load(ImageToLoad, typeof(Sprite)) as Sprite;
         }
-        if (TerrainType == TerrainTypes.Ground)
-        {
+        if (TerrainType == TerrainTypes.Ground){
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load(ImageToLoad, typeof(Sprite)) as Sprite;
         }
 
