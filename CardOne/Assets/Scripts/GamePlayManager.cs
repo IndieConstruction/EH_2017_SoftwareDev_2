@@ -25,6 +25,8 @@ public class GamePlayManager : MonoBehaviour {
         set { players = value; }
     }
 
+    public BoardView boardView;
+
     #endregion
 
     void Awake(){
@@ -101,6 +103,7 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
     void SetUpBoard(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Board");
+        boardView.Init(_gameLeveldata.Board);
         Debug.Log("il level data e" + _gameLeveldata.Id);
 
     }

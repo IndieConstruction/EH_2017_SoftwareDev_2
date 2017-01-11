@@ -9,29 +9,49 @@ public class BoardView : MonoBehaviour{
     public TerrainTypes TerrainType;
     public string ImageToLoad;
     public PlayerSlotType CardPositionForPlayer;
+    public List<SpriteRenderer> ColumsSprite;
 
-    private void Awake()
-    {
-        Init(Data);
-    }
+
     public void Init(BoardData _boardData){
         Data = _boardData;
         InitGraphic(_boardData);
 
     }
-    public void InitGraphic(BoardData board_d){
+    public void InitGraphic(BoardData _boardData) {
 
-        if (TerrainType == TerrainTypes.Empty){
-            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load( ImageToLoad , typeof(Sprite)) as Sprite;
-        }
-        if (TerrainType == TerrainTypes.Elevated){
-            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load(ImageToLoad, typeof(Sprite)) as Sprite;
-        }
-        if (TerrainType == TerrainTypes.Water){
-            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load(ImageToLoad, typeof(Sprite)) as Sprite;
-        }
-        if (TerrainType == TerrainTypes.Ground){
-            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load(ImageToLoad, typeof(Sprite)) as Sprite;
+        //if (TerrainType == TerrainTypes.Empty){
+        //    gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load( ImageToLoad , typeof(Sprite)) as Sprite;
+        //}
+        //if (TerrainType == TerrainTypes.Elevated){
+        //    gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load(ImageToLoad, typeof(Sprite)) as Sprite;
+        //}
+        //if (TerrainType == TerrainTypes.Water){
+        //    gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load(ImageToLoad, typeof(Sprite)) as Sprite;
+        //}
+        //if (TerrainType == TerrainTypes.Ground){
+        //    gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load(ImageToLoad, typeof(Sprite)) as Sprite;
+        //}
+        int i = 0;
+        foreach (var col in _boardData.ColumnList) {
+            
+            switch (col.terrainType) {
+                case TerrainTypes.Empty:
+                    ColumsSprite[i].sprite = Resources.Load<Sprite>("Empty");
+                    break;
+                case TerrainTypes.Elevated:
+                    ColumsSprite[i].sprite = Resources.Load<Sprite>("Elevated");
+                    
+                    break;
+                case TerrainTypes.Water:
+                    ColumsSprite[i].sprite = Resources.Load<Sprite>("Water");
+                    break;
+                case TerrainTypes.Ground:
+                    ColumsSprite[i].sprite = Resources.Load<Sprite>("Ground");
+                    break;
+                default:
+                    break;
+            }
+            i++;
         }
 
         //foreach (Column citem in Columns)
