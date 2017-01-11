@@ -5,45 +5,95 @@ using System.Linq;
 
 public class GamePlayManager : MonoBehaviour {
 
-	public static GamePlayManager gpm;
-	public int CurrentRound ;
-	PlayerData currentPLayer;
-    CardManager cm;
-   
-    public static List<PlayerData> Players() {
-                PlayerData[] allPlayer = Resources.LoadAll<PlayerData>("Players");
-                return allPlayer.ToList<PlayerData>();
-                }
- 
+    #region variables
+    GameLevelData currentLevel; 
 
-	void Awake(){
+    public static GamePlayManager gpm;
+	public int CurrentRound ;
+    /// <summary>
+    /// Contiene il player attivo nella fase di gameplay.
+    /// </summary>
+	PlayerData currentPlayer;
+    CardManager cm;
+
+    private List<PlayerData> players;
+    /// <summary>
+    /// Contiene l'elenco ordinato dei players.
+    /// </summary>
+    public List<PlayerData> Players {
+        get { return players; }
+        set { players = value; }
+    }
+
+    #endregion
+
+    void Awake(){
         if (gpm == null)
             gpm = this;
         cm = FindObjectOfType<CardManager>();
 	}
 
+    #region Flow
+
     void Start() {
-        
-        GameLevelData levelToLoad = GetLevelInfo("1.2");
-        SetUpPlayers(levelToLoad);
-        SetUpBoard(levelToLoad);
-        SetUpCards(levelToLoad);
-        SetUpRound(levelToLoad);
+        // Setup gameplay
+        SetupGameplay();
+        GameplayFlow();
     }
 
-   
+    /// <summary>
+    /// Esegue il setup del gameplay.
+    /// </summary>
+    public void SetupGameplay() {
+        currentLevel = GetLevelInfo("1.2");
+        SetUpPlayers(currentLevel);
+        SetUpBoard(currentLevel);
+        SetUpCards(currentLevel);
+        CurrentRound = 1;
+    }
+
+    /// <summary>
+    /// Gestisce il flow del gameplay.
+    /// </summary>
+    public void GameplayFlow() {
+        bool endGame = false;
+        while (!endGame) {
+            SetUpRound(CurrentRound, currentLevel);
+            // Gameplay
+            CurrentRound++;
+            if (CurrentRound == 5)
+                endGame = true;
+        }
+
+    }
+
+    #endregion
+
+    #region functions
+
+    /// <summary>
+    /// Legge tutti i players selezionabili in gioco.
+    /// </summary>
+    /// <returns></returns>
+    public static List<PlayerData> LoadPlayersFromDisk() {
+        // TODO: Limitare numero di player a 2.
+        PlayerData[] allPlayer = Resources.LoadAll<PlayerData>("Players");
+        return allPlayer.ToList<PlayerData>();
+    }
 
     /// <summary>
     /// Setta i players
     /// </summary>
 	void SetUpPlayers(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Players");
-
+        players = LoadPlayersFromDisk();
+        SetPlayersOrder();
+        // TODO: inizializzare ogni player con i dati di partenza (se prensenti nel _gameLeveldata prenderli da lì)
         //foreach (Player p in players) {
         //currentPLayer.Life = 20;
         //currentPLayer.Mana = CurrentRound;
         //}
-       
+
 
     }
     /// <summary>
@@ -66,29 +116,30 @@ public class GamePlayManager : MonoBehaviour {
 
 
     /// <summary>
-    /// Setta il round
+    /// Setta le informazioni necessare per il round corrente.
     /// </summary>
-    void SetUpRound(GameLevelData _gameLeveldata) {
+    void SetUpRound(int _round, GameLevelData _gameLeveldata) {
         Debug.Log("Setup Round");
-		CurrentRound++;
-		currentPLayer = RandomPlayer ();
-		currentPLayer.MyTurn = true;
-		if (CurrentRound == 1) {
-            cm.GiveCards(4);
-        } 
-		else {
-            cm.GiveCards(1);
+		//if (CurrentRound == 1) {
+  //          cm.GiveCards(4);
+  //      } 
+		//else {
+  //          cm.GiveCards(1);
+  //      }
+		foreach (PlayerData p in LoadPlayersFromDisk()) {
+			p.Mana = CurrentRound;
         }
-		foreach (PlayerData p in Players()) {
-			p.Mana = CurrentRound;		}
     }
 
-	public PlayerData RandomPlayer()
+    /// <summary>
+    /// Setta l'ordine dei giocatori durante i round.
+    /// </summary>
+    /// <returns></returns>
+	public List<PlayerData> SetPlayersOrder()
 	{
-		int randomInd = Random.Range(0, Players().Count);
-		return Players()[randomInd];
-
-	
+		// TODO: mischiare l'ordine dei player random
+		return Players;
+        
 	}
 
 	public void StrategicPhase(){
@@ -107,9 +158,9 @@ public class GamePlayManager : MonoBehaviour {
 
 	}
 
+    #endregion
 
 
-    
     GameLevelData GetLevelInfo(string _levelId) {
         // Creo oggetto riempire e restutire
         GameLevelData returnGameLevel = new GameLevelData();
