@@ -7,8 +7,12 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "Board", menuName = "Levels/Board", order = 1)]
 public class BoardData : ScriptableObject
 {
-    public List<Column> ColumnList = new List<Column> (5);
-    
+
+    #region Board Data
+    public List<Column> ColumnList = new List<Column>(5);
+    #endregion
+
+    #region Runtime Data
     [HideInInspector]
     /// <summary>
     /// Contenitore delle carte in mano al player 1.
@@ -19,7 +23,8 @@ public class BoardData : ScriptableObject
     /// <summary>
     /// Contenitore delle carte in mano al player 2.
     /// </summary>
-    public List<CardData> Player2HandledCardsContainer = new List<CardData>();
+    public List<CardData> Player2HandledCardsContainer = new List<CardData>(); 
+    #endregion
 }
 
 /// <summary>

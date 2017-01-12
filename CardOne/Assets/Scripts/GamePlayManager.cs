@@ -6,6 +6,8 @@ using System.Linq;
 public class GamePlayManager : MonoBehaviour {
 
     #region variables
+    public string CurrentLevelId = "1.1";
+
     GameLevelData currentLevel; 
 
     public static GamePlayManager gpm;
@@ -47,7 +49,7 @@ public class GamePlayManager : MonoBehaviour {
     /// Esegue il setup del gameplay.
     /// </summary>
     public void SetupGameplay() {
-        currentLevel = GetLevelInfo("1.2");
+        currentLevel = GetLevelInfo(CurrentLevelId);
         SetUpPlayers(currentLevel);
         SetUpBoard(currentLevel);
         SetUpCards(currentLevel);

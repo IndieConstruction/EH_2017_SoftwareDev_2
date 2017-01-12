@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ public class BoardView : MonoBehaviour{
     public TerrainTypes TerrainType;
     public string ImageToLoad;
     public PlayerSlotType CardPositionForPlayer;
-    public List<SpriteRenderer> ColumsSprite;
+    public List<Image> ColumsImages;
 
 
     public void Init(BoardData _boardData){
@@ -33,20 +34,18 @@ public class BoardView : MonoBehaviour{
         //}
         int i = 0;
         foreach (var col in _boardData.ColumnList) {
-            
             switch (col.terrainType) {
                 case TerrainTypes.Empty:
-                    ColumsSprite[i].sprite = Resources.Load<Sprite>("Empty");
+                    ColumsImages[i].sprite = Resources.Load<Sprite>("Empty");
                     break;
                 case TerrainTypes.Elevated:
-                    ColumsSprite[i].sprite = Resources.Load<Sprite>("Elevated");
-                    
+                    ColumsImages[i].sprite = Resources.Load<Sprite>("Elevated");
                     break;
                 case TerrainTypes.Water:
-                    ColumsSprite[i].sprite = Resources.Load<Sprite>("Water");
+                    ColumsImages[i].sprite = Resources.Load<Sprite>("Water");
                     break;
                 case TerrainTypes.Ground:
-                    ColumsSprite[i].sprite = Resources.Load<Sprite>("Ground");
+                    ColumsImages[i].sprite = Resources.Load<Sprite>("Ground");
                     break;
                 default:
                     break;
