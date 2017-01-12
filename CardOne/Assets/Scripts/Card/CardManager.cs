@@ -50,8 +50,7 @@ public class CardManager : MonoBehaviour
         {
             for (int i = 0; i < decks.Count; i++)
             {
-                if (p.id == decks[i].id)
-                    decks[i].gameObject.transform.SetParent(p.transform);
+                // assegna i mazzi ai player
             }
         }
     }
@@ -65,14 +64,12 @@ public class CardManager : MonoBehaviour
             for (int n = 0; n < numberOfCards; n++){
                 List<CardData> cardsData = pv.GetComponentInChildren<Deck>().cards;
                 int randomIndex = Random.Range(0, cardsData.Count);
-                // Instantiate(cardView, pv.transform);
-                pv.cardsInScene.Add(cardView);
+                Instantiate(cardView);
+                
                 //cardView.gameObject.transform.position = new Vector3(0, pv.transform.position.y, 0);
                 cardView.Init(cardsData[randomIndex]);
             }
-            for (int i = 0; i < pv.cardsInScene.Count; i++){
-                Instantiate(pv.cardsInScene[i].gameObject, pv.cardsSpawnPoints[i].transform.position, pv.cardsInScene[i].transform.rotation);
-            }
+           
          }
         }
     /// <summary>

@@ -5,18 +5,20 @@ using System.Linq;
 
 public class CardView : MonoBehaviour {
     public CardManager cm;
-    [HideInInspector] public CardData Data;
-    
-    public string IdCard;
- 
+    public CardData Data;
+    public SpriteRenderer ImageToLoad;
 
+
+    private void Start() {
+        Init(Data);
+    }
     /// <summary>
     /// Init dei dati.
     /// </summary>
     /// <param name="_cardData"></param>
     public void Init(CardData _cardData) {
         Data = _cardData;
-        InitGraphic(_cardData);
+        UpdateGraphic(_cardData);
     }
 
     /// <summary>
@@ -28,11 +30,12 @@ public class CardView : MonoBehaviour {
         cm = FindObjectOfType<CardManager>();
        
     }
-    public void InitGraphic(CardData c)
+    public void UpdateGraphic(CardData c)
     {
-        gameObject.GetComponentsInChildren<TextMesh>()[0].text = c.Life.ToString();
-        gameObject.GetComponentsInChildren<TextMesh>()[1].text = c.Attack.ToString();
-        gameObject.GetComponentsInChildren<TextMesh>()[2].text = c.ManaCost.ToString();
+        gameObject.GetComponentsInChildren<Text>()[0].text = c.Life.ToString();
+        gameObject.GetComponentsInChildren<Text>()[1].text = c.Attack.ToString();
+        gameObject.GetComponentsInChildren<Text>()[2].text = c.ManaCost.ToString();
+        ImageToLoad.sprite = c.CardSprite;
         //gameObject.GetComponentsInChildren<SpriteRenderer>()[3].sprite = Resources.Load(Data.ImageToLoad, typeof(Sprite)) as Sprite;
         
 

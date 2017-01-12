@@ -28,7 +28,7 @@ public class GamePlayManager : MonoBehaviour {
     }
 
     public BoardView boardView;
-
+    public PlayerView PView1,PView2;
     #endregion
 
     void Awake(){
@@ -50,10 +50,10 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
     public void SetupGameplay() {
         currentLevel = GetLevelInfo(CurrentLevelId);
+        CurrentRound = 1;
         SetUpPlayers(currentLevel);
         SetUpBoard(currentLevel);
         SetUpCards(currentLevel);
-        CurrentRound = 1;
     }
 
     /// <summary>
@@ -91,13 +91,16 @@ public class GamePlayManager : MonoBehaviour {
 	void SetUpPlayers(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Players");
         players = LoadPlayersFromDisk();
-        SetPlayersOrder();
-        // TODO: inizializzare ogni player con i dati di partenza (se prensenti nel _gameLeveldata prenderli da lì)
-        //foreach (Player p in players) {
-        //currentPLayer.Life = 20;
-        //currentPLayer.Mana = CurrentRound;
-        //}
+        // Player 1 inizializzazione
+        PView1.Init(players[0]);
+        players[0].Mana = CurrentRound;
+        players[0].Life = 20;
+        // Player 2 inizializzazione
+        PView2.Init(players[1]);
+        players[1].Mana = CurrentRound;
+        players[1].Life = 20;
 
+        SetPlayersOrder();
 
     }
     /// <summary>
@@ -116,6 +119,7 @@ public class GamePlayManager : MonoBehaviour {
         Debug.LogFormat("Setup Cards {0}", _gameLeveldata.AllCards.Count);
         cm.GiveCardsToDecks(2);
         cm.GiveDeck();
+        //cm.GiveCards(1);
         
     }
 
