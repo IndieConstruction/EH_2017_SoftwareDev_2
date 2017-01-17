@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class PlayerView : MonoBehaviour {
     public Text Mana, Life;
+    public Image PlayerImage;
 
     PlayerData playerData;
 
@@ -12,11 +13,14 @@ public class PlayerView : MonoBehaviour {
         playerData.OnDataChanged = null;
         playerData.OnDataChanged += dataChanged;
         UpdateGraphic(_playerData);
+        PlayerImage.sprite = _playerData.PlayerImage;
+
     }
 
     public void UpdateGraphic(PlayerData pd){
         Life.text = pd.Life.ToString();
         Mana.text = pd.Mana.ToString();
+        
     }
 
     #region Event subscriptions

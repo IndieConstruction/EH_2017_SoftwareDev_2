@@ -82,6 +82,7 @@ public class GamePlayManager : MonoBehaviour {
     public static List<PlayerData> LoadPlayersFromDisk() {
         // TODO: Limitare numero di player a 2.
         PlayerData[] allPlayer = Resources.LoadAll<PlayerData>("Players");
+       
         return allPlayer.ToList<PlayerData>();
     }
 
@@ -99,7 +100,6 @@ public class GamePlayManager : MonoBehaviour {
         PView2.Init(players[1]);
         players[1].Mana = CurrentRound;
         players[1].Life = 20;
-
         SetPlayersOrder();
 
     }
@@ -140,18 +140,27 @@ public class GamePlayManager : MonoBehaviour {
         }
     }
 
+    #region 18/01/2017
     /// <summary>
     /// Setta l'ordine dei giocatori durante i round.
     /// </summary>
     /// <returns></returns>
-	public List<PlayerData> SetPlayersOrder()
-	{
-		// TODO: mischiare l'ordine dei player random
-		return Players;
-        
-	}
+    public List<PlayerData> SetPlayersOrder()
+    {
+        List<PlayerData> pd = new List<PlayerData>();
+        for (int i = 0; i < Players.Count; i++)
+        {
+            int randomInd = Random.Range(0, Players.Count);
+            pd.Add(Players[randomInd]);
+        }
+        // TODO: mischiare l'ordine dei player random
+        Players = pd;
+        return Players;
+    }
+    
+    #endregion
 
-	public void StrategicPhase(){
+    public void StrategicPhase(){
 	
 		//if (gpm.Players().MyTurn)
 		//{
