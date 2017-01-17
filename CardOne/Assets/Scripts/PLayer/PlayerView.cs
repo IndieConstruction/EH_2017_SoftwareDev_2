@@ -13,7 +13,7 @@ public class PlayerView : MonoBehaviour {
         playerData.OnDataChanged = null;
         playerData.OnDataChanged += dataChanged;
         UpdateGraphic(_playerData);
-        PlayerImage.sprite = _playerData.PlayerImage;
+        PlayerImage.sprite = playerData.PlayerImage;
 
     }
 

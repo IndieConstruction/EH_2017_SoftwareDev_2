@@ -91,16 +91,19 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
 	void SetUpPlayers(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Players");
+
         players = LoadPlayersFromDisk();
+        SetPlayersOrder();
         // Player 1 inizializzazione
         PView1.Init(players[0]);
         players[0].Mana = CurrentRound;
         players[0].Life = 20;
+        
         // Player 2 inizializzazione
         PView2.Init(players[1]);
         players[1].Mana = CurrentRound;
         players[1].Life = 20;
-        SetPlayersOrder();
+       
 
     }
     /// <summary>
@@ -148,12 +151,15 @@ public class GamePlayManager : MonoBehaviour {
     public List<PlayerData> SetPlayersOrder()
     {
         List<PlayerData> pd = new List<PlayerData>();
+        
         for (int i = 0; i < Players.Count; i++)
         {
-            int randomInd = Random.Range(0, Players.Count);
+            int randomInd = Random.Range(i, Players.Count);
             pd.Add(Players[randomInd]);
+            
         }
-        // TODO: mischiare l'ordine dei player random
+        //Players.Remove(Players[randomInd]);
+        // TODO: fare in modo che non prenda due volte lo stesso
         Players = pd;
         return Players;
     }
