@@ -80,7 +80,7 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public static List<PlayerData> LoadPlayersFromDisk() {
-        // TODO: Limitare numero di player a 2.
+        
         PlayerData[] allPlayer = Resources.LoadAll<PlayerData>("Players");
        
         return allPlayer.ToList<PlayerData>();
@@ -91,8 +91,9 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
 	void SetUpPlayers(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Players");
-
         players = LoadPlayersFromDisk();
+        // TODO: Limitare numero di player a 2.
+        players.RemoveRange(2, players.Count-2);
         SetPlayersOrder();
         // Player 1 inizializzazione
         PView1.Init(players[0]);
@@ -150,18 +151,16 @@ public class GamePlayManager : MonoBehaviour {
     /// <returns></returns>
     public List<PlayerData> SetPlayersOrder()
     {
+        #region 18/01/2017
         List<PlayerData> pd = new List<PlayerData>();
-        
-        for (int i = 0; i < Players.Count; i++)
-        {
-            int randomInd = Random.Range(i, Players.Count);
-            pd.Add(Players[randomInd]);
-            
-        }
-        //Players.Remove(Players[randomInd]);
-        // TODO: fare in modo che non prenda due volte lo stesso
+        int randomInd = Random.Range(0, Players.Count);
+        pd.Insert(0, Players[randomInd]);
+        Players.Remove(Players[randomInd]);
+        pd.Insert(1, Players[0]);
         Players = pd;
-        return Players;
+
+        return Players; 
+        #endregion
     }
     
     #endregion
