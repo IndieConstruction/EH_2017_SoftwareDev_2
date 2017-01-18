@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Deck : MonoBehaviour {
+public class Deck : MonoBehaviour {// fa spostato nel cardData
     public string id;
     public CardManager cm;
     public List<CardData> cards;

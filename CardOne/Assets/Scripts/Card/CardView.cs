@@ -35,11 +35,7 @@ public class CardView : MonoBehaviour {
         gameObject.GetComponentsInChildren<Text>()[0].text = c.Life.ToString();
         gameObject.GetComponentsInChildren<Text>()[1].text = c.Attack.ToString();
         gameObject.GetComponentsInChildren<Text>()[2].text = c.ManaCost.ToString();
-        //ImageToLoad.sprite = c.CardSprite;
-        //gameObject.GetComponentsInChildren<SpriteRenderer>()[3].sprite = Resources.Load(Data.ImageToLoad, typeof(Sprite)) as Sprite;
-        
-
-
+        //ImageToLoad.sprite = c.CardSprite;   
     }
 }
 
