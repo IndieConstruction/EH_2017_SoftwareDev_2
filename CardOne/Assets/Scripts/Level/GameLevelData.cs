@@ -9,7 +9,7 @@ public class GameLevelData : ScriptableObject
     /// <summary>
     /// Carte che da in mano al primo round
     /// </summary>
-    public int StartNumberOfCards;
+    public int StartNumberOfCards =4;
     /// <summary>
     /// Carte che vengono iniettate nel deck di ogni player durante il SetUp.
     /// </summary>

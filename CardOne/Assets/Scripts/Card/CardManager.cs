@@ -6,7 +6,7 @@ public class CardManager : MonoBehaviour {
 
     public PlayerView[] players;
     public CardView cardView;
-
+    
     /// <summary>
     /// Prende tutte le carte che stanno nella cartella Resources/Cards
     /// </summary>
@@ -46,6 +46,8 @@ public class CardManager : MonoBehaviour {
             GamePlayManager.Istance.Players[1].Deck.Add(newCard);
         }
     }
+
+    
     
 }
 

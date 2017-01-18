@@ -7,7 +7,7 @@ public class GamePlayManager : MonoBehaviour {
 
     #region variables
     public string CurrentLevelId = "1.1";
-
+    
     GameLevelData currentLevel; 
 
     public static GamePlayManager Istance;
@@ -16,7 +16,7 @@ public class GamePlayManager : MonoBehaviour {
     /// Contiene il player attivo nella fase di gameplay.
     /// </summary>
 	PlayerData currentPlayer;
-    CardManager cm;
+    public CardManager cm;
 
     private List<PlayerData> players;
     /// <summary>
@@ -61,13 +61,13 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
     public void GameplayFlow() {
         bool endGame = false;
-        while (!endGame) {
+      //  while (!endGame) {
             SetUpRound(CurrentRound, currentLevel);
             // Gameplay
             CurrentRound++;
             if (CurrentRound == 5)
                 endGame = true;
-        }
+       // }
 
     }
 
@@ -130,13 +130,16 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
     void SetUpRound(int _round, GameLevelData _gameLeveldata) {
         Debug.Log("Setup Round");
-		//if (CurrentRound == 1) {
-  //          cm.GiveCards(4);
-  //      } 
-		//else {
-  //          cm.GiveCards(1);
-  //      }
-		foreach (PlayerData p in LoadPlayersFromDisk()) {
+        if (CurrentRound == 1) {
+            foreach (PlayerData playerD in Players) {
+                playerD.PutCardsInHand(_gameLeveldata.StartNumberOfCards);
+            } 
+        } else {
+            foreach (PlayerData playerD in Players) {
+                playerD.PutCardsInHand(1);
+            }
+        }
+        foreach (PlayerData p in LoadPlayersFromDisk()) {
 			p.Mana = CurrentRound;
         }
     }

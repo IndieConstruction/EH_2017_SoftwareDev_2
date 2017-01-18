@@ -7,10 +7,10 @@ public class CardView : MonoBehaviour {
     public CardManager cm;
     public CardData Data;
     public SpriteRenderer ImageToLoad;
-
+    public PlayerView playerView;
 
     private void Start() {
-        Init(Data);
+        
     }
     /// <summary>
     /// Init dei dati.
@@ -19,6 +19,7 @@ public class CardView : MonoBehaviour {
     public void Init(CardData _cardData) {
         Data = _cardData;
         UpdateGraphic(_cardData);
+        //transform.SetParent()
     }
 
     /// <summary>

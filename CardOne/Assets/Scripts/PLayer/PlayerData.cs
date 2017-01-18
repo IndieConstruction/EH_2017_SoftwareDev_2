@@ -46,4 +46,22 @@ public class PlayerData{
     [HideInInspector]
     public List<CardData> CardDataInHand = new List<CardData>();
     #endregion
+    /// <summary>
+    /// mette le carte in CardsInHand e le toglie da Deck
+    /// </summary>
+    /// <param name="numberOfCards"></param>
+    public void PutCardsInHand(int numberOfCards) {
+
+        for (int i = 0; i < numberOfCards; i++) {
+            //Debug.Log(Deck[i].ID);
+            CardDataInHand.Add(Deck[0]);
+            //GameObject.Instantiate(GamePlayManager.Istance.cm.cardView).Init(Deck[0]);
+            CardView newCardView = GameObject.Instantiate(GamePlayManager.Istance.cm.cardView);
+            newCardView.Init(Deck[0]);
+            
+            //GameObject cardGameObject = GameObject.Instantiate(GamePlayManager.Istance.cm.cardView) as GameObject;
+            Deck.Remove(Deck[0]);
+        }
+       
+    }
 }
