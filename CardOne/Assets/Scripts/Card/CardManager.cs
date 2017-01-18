@@ -2,15 +2,16 @@
 using System.Linq;
 using System.Collections.Generic;
 
-public class CardManager : MonoBehaviour
-{
-    
+public class CardManager : MonoBehaviour {
+
     public PlayerView[] players;
-    public List<Deck> decks;
     public CardView cardView;
 
-   
-    public static List<CardData> GetAllCards() { 
+    /// <summary>
+    /// Prende tutte le carte che stanno nella cartella Resources/Cards
+    /// </summary>
+    /// <returns></returns>
+    public static List<CardData> GetAllCards() {
         CardData[] allCards = Resources.LoadAll<CardData>("Cards");
         return allCards.ToList<CardData>();
         // Vecchio sistema con creazione manuale dei dati.
@@ -25,58 +26,26 @@ public class CardManager : MonoBehaviour
         //          la lettura delle risorse(Resources)
     }
 
-    private void Awake(){
+    private void Awake() {
         players = FindObjectsOfType<PlayerView>();
     }
     /// <summary>
-    /// assegna le carte ai mazzi 
+    /// Assegna le carte ai mazzi 
     /// </summary>
+    /// <param name="numberOfCards">Numero di carte da dare per ogni mazzo dei player</param>
     public void GiveCardsToDecks(int numberOfCards) {
-        for (int i = 0; i < GetAllCards().Count; i++){
-            if (i < numberOfCards){
-                decks[0].cards.Add(GetAllCards()[i]);
-            }
-            if (i >= numberOfCards){
-                decks[1].cards.Add(GetAllCards()[i]);
-            }
+        //Ripete per il numberOfCards la scelta della carta Ranom e l'assegna al deck di ogni Player
+        for (int i = 0; i < numberOfCards; i++) {
+            int RandomInd = Random.Range(0, GetAllCards().Count);
+            CardData newCard = GetAllCards()[RandomInd];
+            GamePlayManager.Istance.Players[0].Deck.Add(newCard);
+        }
+        for (int i = 0; i < numberOfCards; i++) {
+            int RandomInd = Random.Range(0, GetAllCards().Count);
+            CardData newCard = GetAllCards()[RandomInd];
+            GamePlayManager.Istance.Players[1].Deck.Add(newCard);
         }
     }
-
-    /// <summary>
-    /// Gives the decks to the players
-    /// </summary>
-    public void GiveDeck(){
-        foreach (PlayerView p in players)
-        {
-            for (int i = 0; i < decks.Count; i++)
-            {
-                // assegna i mazzi ai player
-            }
-        }
-    }
-    /// <summary>
-    /// Give the cards to the players
-    /// </summary>
-    /// <param name="numberOfCards"></param>
-    public void GiveCards(int numberOfCards) {
-
-        foreach (PlayerView pv in players){
-            for (int n = 0; n < numberOfCards; n++){
-                List<CardData> cardsData = pv.GetComponentInChildren<Deck>().cards;
-                int randomIndex = Random.Range(0, cardsData.Count);
-                Instantiate(cardView);
-                
-                //cardView.gameObject.transform.position = new Vector3(0, pv.transform.position.y, 0);
-                cardView.Init(cardsData[randomIndex]);
-            }
-           
-         }
-        }
-    /// <summary>
-    /// Quando prendo una carte da posizionare nella board,controllo se la posizione in cui il player vuole posizionarla e' corretta.
-    /// </summary>
-    public void DropCardInRightBoardPosition() {
-
-    }
-    }
+    
+}
 

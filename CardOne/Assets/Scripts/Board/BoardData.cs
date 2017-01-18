@@ -12,19 +12,6 @@ public class BoardData : ScriptableObject
     public List<Column> ColumnList = new List<Column>(5);
     #endregion
 
-    #region Runtime Data
-    [HideInInspector]
-    /// <summary>
-    /// Contenitore delle carte in mano al player 1.
-    /// </summary>
-    public List<CardData> Player1HandledCardsContainer = new List<CardData>();
-
-    [HideInInspector]
-    /// <summary>
-    /// Contenitore delle carte in mano al player 2.
-    /// </summary>
-    public List<CardData> Player2HandledCardsContainer = new List<CardData>(); 
-    #endregion
 }
 
 /// <summary>

@@ -10,7 +10,7 @@ public class GamePlayManager : MonoBehaviour {
 
     GameLevelData currentLevel; 
 
-    public static GamePlayManager gpm;
+    public static GamePlayManager Istance;
 	public int CurrentRound ;
     /// <summary>
     /// Contiene il player attivo nella fase di gameplay.
@@ -32,8 +32,8 @@ public class GamePlayManager : MonoBehaviour {
     #endregion
 
     void Awake(){
-        if (gpm == null)
-            gpm = this;
+        if (Istance == null)
+            Istance = this;
         cm = FindObjectOfType<CardManager>();
 	}
 
@@ -80,10 +80,12 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public static List<PlayerData> LoadPlayersFromDisk() {
-        
-        PlayerData[] allPlayer = Resources.LoadAll<PlayerData>("Players");
-       
-        return allPlayer.ToList<PlayerData>();
+        List<PlayerData> Players = new List<PlayerData>() {
+             new PlayerData() { },
+             new PlayerData() { }
+         };
+        //PlayerData[] allPlayer = Resources.LoadAll<PlayerData>("Players");
+        return Players;
     }
 
     /// <summary>
@@ -91,21 +93,19 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
 	void SetUpPlayers(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Players");
-        players = LoadPlayersFromDisk();
+        Players = LoadPlayersFromDisk();
         // TODO: Limitare numero di player a 2.
-        players.RemoveRange(2, players.Count-2);
+        Players.RemoveRange(2, Players.Count-2);
         SetPlayersOrder();
         // Player 1 inizializzazione
-        PView1.Init(players[0]);
-        players[0].Mana = CurrentRound;
-        players[0].Life = 20;
+        PView1.Init(Players[0]);
+        Players[0].Mana = CurrentRound;
+        Players[0].Life = _gameLeveldata.PlayersStartLife;
         
         // Player 2 inizializzazione
-        PView2.Init(players[1]);
-        players[1].Mana = CurrentRound;
-        players[1].Life = 20;
-       
-
+        PView2.Init(Players[1]);
+        Players[1].Mana = CurrentRound;
+        Players[1].Life = _gameLeveldata.PlayersStartLife;
     }
     /// <summary>
     /// Setta il tavolo
@@ -121,10 +121,7 @@ public class GamePlayManager : MonoBehaviour {
     /// </summary>
     void SetUpCards(GameLevelData _gameLeveldata) {
         Debug.LogFormat("Setup Cards {0}", _gameLeveldata.AllCards.Count);
-        cm.GiveCardsToDecks(2);
-        cm.GiveDeck();
-        //cm.GiveCards(1);
-        
+        cm.GiveCardsToDecks(_gameLeveldata.StartNumberOfCardsInPlayerDeck);  
     }
 
 
