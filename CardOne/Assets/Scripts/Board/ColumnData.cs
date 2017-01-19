@@ -2,8 +2,8 @@
 using System.Collections;
 
 [System.Serializable]
-public class Column {
+public class ColumnData {
 
     public TerrainTypes terrainType;
-    public GameObject[] spawnPoints;
+   
 }

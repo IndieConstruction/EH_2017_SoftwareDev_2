@@ -9,7 +9,7 @@ public class BoardData : ScriptableObject
 {
 
     #region Board Data
-    public List<Column> ColumnList = new List<Column>(5);
+    public List<ColumnData> ColumnList = new List<ColumnData>(5);
     #endregion
 
 }

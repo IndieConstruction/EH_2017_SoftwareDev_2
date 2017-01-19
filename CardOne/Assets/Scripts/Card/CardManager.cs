@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
-
+/// <summary>
+/// Si occupa di tutto quello che riguarda le carte nel gioco.
+/// </summary>
 public class CardManager : MonoBehaviour {
-
-    public PlayerView[] players;
-    public CardView cardView;
+    
+    /// <summary>
+    /// Prefab per la costruzione della cardView.
+    /// </summary>
+    public CardView cardViewPrefab;
     
     /// <summary>
     /// Prende tutte le carte che stanno nella cartella Resources/Cards
@@ -25,10 +29,7 @@ public class CardManager : MonoBehaviour {
         //          i dati(scriptableObject) nella directory tramite
         //          la lettura delle risorse(Resources)
     }
-
-    private void Awake() {
-        players = FindObjectsOfType<PlayerView>();
-    }
+    
     /// <summary>
     /// Assegna le carte ai mazzi 
     /// </summary>
@@ -38,12 +39,12 @@ public class CardManager : MonoBehaviour {
         for (int i = 0; i < numberOfCards; i++) {
             int RandomInd = Random.Range(0, GetAllCards().Count);
             CardData newCard = GetAllCards()[RandomInd];
-            GamePlayManager.Istance.Players[0].Deck.Add(newCard);
+            GamePlayManager.Instance.Players[0].Deck.Add(newCard);
         }
         for (int i = 0; i < numberOfCards; i++) {
             int RandomInd = Random.Range(0, GetAllCards().Count);
             CardData newCard = GetAllCards()[RandomInd];
-            GamePlayManager.Istance.Players[1].Deck.Add(newCard);
+            GamePlayManager.Instance.Players[1].Deck.Add(newCard);
         }
     }
 

@@ -10,7 +10,7 @@ public class GamePlayManager : MonoBehaviour {
     
     GameLevelData currentLevel; 
 
-    public static GamePlayManager Istance;
+    public static GamePlayManager Instance;
 	public int CurrentRound ;
     /// <summary>
     /// Contiene il player attivo nella fase di gameplay.
@@ -32,8 +32,8 @@ public class GamePlayManager : MonoBehaviour {
     #endregion
 
     void Awake(){
-        if (Istance == null)
-            Istance = this;
+        if (Instance == null)
+            Instance = this;
         cm = FindObjectOfType<CardManager>();
 	}
 
@@ -79,10 +79,10 @@ public class GamePlayManager : MonoBehaviour {
     /// Legge tutti i players selezionabili in gioco.
     /// </summary>
     /// <returns></returns>
-    public static List<PlayerData> LoadPlayersFromDisk() {
+    static List<PlayerData> LoadPlayersFromDisk() {
         List<PlayerData> Players = new List<PlayerData>() {
-             new PlayerData() { },
-             new PlayerData() { }
+             new PlayerData() { id = "Red" },
+             new PlayerData() { id = "Blue" }
          };
         //PlayerData[] allPlayer = Resources.LoadAll<PlayerData>("Players");
         return Players;
@@ -144,14 +144,12 @@ public class GamePlayManager : MonoBehaviour {
         }
     }
 
-    #region 18/01/2017
     /// <summary>
     /// Setta l'ordine dei giocatori durante i round.
     /// </summary>
     /// <returns></returns>
-    public List<PlayerData> SetPlayersOrder()
+    List<PlayerData> SetPlayersOrder()
     {
-        #region 18/01/2017
         List<PlayerData> pd = new List<PlayerData>();
         int randomInd = Random.Range(0, Players.Count);
         pd.Insert(0, Players[randomInd]);
@@ -160,10 +158,8 @@ public class GamePlayManager : MonoBehaviour {
         Players = pd;
 
         return Players; 
-        #endregion
     }
     
-    #endregion
 
     public void StrategicPhase(){
 	
@@ -181,6 +177,32 @@ public class GamePlayManager : MonoBehaviour {
 
 	}
 
+    #endregion
+    
+    #region API
+
+    /// <summary>
+    /// Restituisce la view del player passato come parametro.
+    /// </summary>
+    /// <param name="_playerData"></param>
+    /// <returns></returns>
+    public PlayerView GetPlayerViewFromData(PlayerData _playerData) {
+        if (_playerData.id == Players[0].id)
+            return PView1;
+        else
+            return PView2;
+    }
+    /// <summary>
+    /// Restituisce 1 se il parametro è riferito al player1, 2 se è riferito al player2
+    /// </summary>
+    /// <param name="_playerData"></param>
+    /// <returns></returns>
+    public int GetPlayerNumber(PlayerData _playerData) {
+        if (_playerData.id == Players[0].id)
+            return 1;
+        else
+            return 2;
+    }
     #endregion
 
 

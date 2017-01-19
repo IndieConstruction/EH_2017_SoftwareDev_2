@@ -5,8 +5,9 @@ using UnityEngine.UI;
 public class PlayerView : MonoBehaviour {
     public Text Mana, Life;
     public Image PlayerImage;
+    public Transform CardContainer;
 
-    PlayerData playerData;
+    public PlayerData playerData;
 
     public void Init(PlayerData _playerData){
         playerData = _playerData;

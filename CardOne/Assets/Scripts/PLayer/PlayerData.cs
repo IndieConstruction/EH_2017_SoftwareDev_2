@@ -56,9 +56,10 @@ public class PlayerData{
             //Debug.Log(Deck[i].ID);
             CardDataInHand.Add(Deck[0]);
             //GameObject.Instantiate(GamePlayManager.Istance.cm.cardView).Init(Deck[0]);
-            CardView newCardView = GameObject.Instantiate(GamePlayManager.Istance.cm.cardView);
+            CardView newCardView = GameObject.Instantiate(GamePlayManager.Instance.cm.cardViewPrefab);
             newCardView.Init(Deck[0]);
-            
+            newCardView.AllocateCardToPlayer(this);
+
             //GameObject cardGameObject = GameObject.Instantiate(GamePlayManager.Istance.cm.cardView) as GameObject;
             Deck.Remove(Deck[0]);
         }
