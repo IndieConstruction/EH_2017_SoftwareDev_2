@@ -165,46 +165,6 @@ public class GamePlayManager : MonoBehaviour {
     }
     #endregion
 
-    /// <summary>
-    /// Carica da disco le info del livello tramite l'id del livello,
-    /// Operazione da seguire solo nella fase di setup
-    /// </summary>
-    /// <param name="_levelId"></param>
-    /// <returns></returns>
-    GameLevelData GetLevelInfo(string _levelId) {
-        // Creo oggetto riempire e restutire
-        GameLevelData returnGameLevel = new GameLevelData();
 
-        GameLevelData[] allLevels = Resources.LoadAll<GameLevelData>("Levels");
-        foreach (GameLevelData levelData in allLevels) {
-            if (levelData.Id == _levelId)
-                returnGameLevel = levelData;
-        }
-
-        returnGameLevel.AllCards = CardManager.GetAllCards();
-
-        //switch (_levelId) {
-        //    case 1:
-        //        returnGameLevel = new GameLevel() {
-        //            StartNumberOfCards = 5,
-        //            Cols = new List<BoardCol>() {
-        //                                     new BoardCol() { ColType = -1 },
-        //                                     new BoardCol() { ColType = 0 },
-        //                                     new BoardCol() { ColType = 0 },
-        //                                     new BoardCol() { ColType = 0 },
-        //                                     new BoardCol() { ColType = -1 },
-        //                                 }
-        //        };
-        //        break;
-
-        //    default:
-        //        returnGameLevel = new GameLevel();
-        //        break;
-        //}
-
-
-
-        return returnGameLevel;
-    }
     
 }
