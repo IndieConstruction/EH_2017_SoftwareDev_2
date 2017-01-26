@@ -5,9 +5,9 @@ using UnityEngine;
 /// <summary>
 /// Classe base per ogni stato della macchina a stati.
 /// </summary>
-public abstract class State {
-    protected StateMachine stateMachine;
-    public virtual void Start(StateMachine _stateMachine) {
+public abstract class StateBase {
+    protected StateMachineBase stateMachine;
+    public virtual void Start(StateMachineBase _stateMachine) {
         stateMachine = _stateMachine;
     }
     

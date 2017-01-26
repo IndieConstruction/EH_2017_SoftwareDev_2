@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InGame : State {
+public class InGameState : StateBase {
 
    
-    public override void Start(StateMachine _stateMachine) {
+    public override void Start(StateMachineBase _stateMachine) {
         base.Start(_stateMachine);
+        stateMachine.gameObject.AddComponent<InGameSM>();
     }
     public override void Update() {
-        Debug.Log("InGame Update");
+        //Debug.Log("InGame Update");
     }
 
     public override void End() {

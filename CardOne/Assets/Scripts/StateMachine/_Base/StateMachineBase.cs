@@ -5,22 +5,22 @@ using UnityEngine;
 /// <summary>
 /// Classe base da estendere per creare una macchina Stati finiti.
 /// </summary>
-public abstract class StateMachine : MonoBehaviour {
+public abstract class StateMachineBase : MonoBehaviour {
 
-    private List<State> states;
+    private List<StateBase> states;
     /// <summary>
     /// Elenco degli stati della state machine.
     /// </summary>
-    public List<State> States {
+    public List<StateBase> States {
         get { return states; }
         set { states = value; }
     }
 
-    private State currentState;
+    private StateBase currentState;
     /// <summary>
     /// Stato corrente.
     /// </summary>
-    public State CurrentState {
+    public StateBase CurrentState {
         get { return currentState; }
         set { currentState = value; }
     }
@@ -29,7 +29,7 @@ public abstract class StateMachine : MonoBehaviour {
     /// Cambia lo stato in param come stato attuale.
     /// </summary>
     /// <param name="_newState"></param>
-    public void ChangeState(State _newState) {
+    public void ChangeState(StateBase _newState) {
         if (CurrentState == _newState)
             return;
         if(CurrentState != null)

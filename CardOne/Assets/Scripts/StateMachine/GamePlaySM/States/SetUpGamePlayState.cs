@@ -5,17 +5,14 @@ using UnityEngine;
 /// <summary>
 /// Stato che gestisce il Setup prima del GamePlay
 /// </summary>
-public class SetUpGamePlay : State {
+public class SetUpGamePlayState : StateBase {
 
     #region Runtime Variables
-    /// <summary>
-    /// contiene i dati del livello corrente 
-    /// </summary>
-    GameLevelData currentLevel;
+    
     #endregion
 
     #region LifeCycle
-    public override void Start(StateMachine _stateMachine) {
+    public override void Start(StateMachineBase _stateMachine) {
         base.Start(_stateMachine);
         SetupGameplay();
         stateMachine.NotifyTheStateIsOver();
@@ -33,11 +30,11 @@ public class SetUpGamePlay : State {
     /// Esegue il setup del gameplay.
     /// </summary>
     void SetupGameplay() {
-        currentLevel = GetLevelInfo(GamePlayManager.I.CurrentLevelId);
+        GamePlayManager.I.currentLevel = GetLevelInfo(GamePlayManager.I.CurrentLevelId);
         GamePlayManager.I.CurrentRound = 1;
-        SetUpPlayers(currentLevel);
-        SetUpBoard(currentLevel);
-        SetUpCards(currentLevel);
+        SetUpPlayers(GamePlayManager.I.currentLevel);
+        SetUpBoard(GamePlayManager.I.currentLevel);
+        SetUpCards(GamePlayManager.I.currentLevel);
     }
     /// <summary>
     /// Setta i players

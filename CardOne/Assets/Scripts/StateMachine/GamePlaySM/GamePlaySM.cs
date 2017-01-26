@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GamePlaySM : StateMachine {
+public class GamePlaySM : StateMachineBase {
 
     private void Start() {
-        ChangeState(new SetUpGamePlay());
+        ChangeState(new SetUpGamePlayState());
     }
     public override void NotifyTheStateIsOver() {
         switch (CurrentState.GetType().Name) {
-            case "SetUpGamePlay":
-                ChangeState(new InGame());
+            case "SetUpGamePlayState":
+                ChangeState(new InGameState());
+                break;
+            case "StrategicPhase":
                 break;
             default:
                 break;

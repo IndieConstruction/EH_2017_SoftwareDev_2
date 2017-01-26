@@ -3,16 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameOver : State {
-    public override void Start(StateMachine _stateMachine) {
+public class StrategicPhase : StateBase {
+
+    public override void Start(StateMachineBase _stateMachine) {
         base.Start(_stateMachine);
+        Debug.Log("StrategicPhase iniziata");
     }
 
     public override void Update() {
-        Debug.Log("GameOver Update");
+        
     }
 
     public override void End() {
-        Debug.Log("GameOver End");
+    
     }
+
+    
 }

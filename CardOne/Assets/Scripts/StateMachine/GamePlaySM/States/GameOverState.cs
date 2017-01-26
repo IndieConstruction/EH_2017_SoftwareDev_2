@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PreGameplay : State {
-    public override void Start(StateMachine _stateMachine) {
+public class GameOver : StateBase {
+    public override void Start(StateMachineBase _stateMachine) {
         base.Start(_stateMachine);
     }
 
     public override void Update() {
-        Debug.Log("PreGameplay Update");
+        Debug.Log("GameOver Update");
     }
 
     public override void End() {
-        Debug.Log("PreGameplay End");
+        Debug.Log("GameOver End");
     }
 }
