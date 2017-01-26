@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "PlayerDataInfo", menuName = "Player/PlayerData", order = 1)]
 public class PlayerData{
     public string id; 
     public Sprite PlayerImage;
