@@ -10,7 +10,7 @@ public class GamePlayManager : MonoBehaviour {
     
 
 
-    public static GamePlayManager Instance;
+    public static GamePlayManager I;
 	public int CurrentRound ;
     /// <summary>
     /// Contiene il player attivo nella fase di gameplay.
@@ -32,15 +32,15 @@ public class GamePlayManager : MonoBehaviour {
     #endregion
 
     void Awake(){
-        if (Instance == null)
-            Instance = this;
+        if (I == null)
+            I = this;
         cm = FindObjectOfType<CardManager>();
 	}
 
     #region Flow
 
     void Start() {
-        GameplayFlow();
+       // GameplayFlow();
     }
 
     private void Update() {
@@ -68,23 +68,7 @@ public class GamePlayManager : MonoBehaviour {
     #endregion
 
     #region functions
-
-    /// <summary>
-    /// Legge tutti i players selezionabili in gioco.
-    /// </summary>
-    /// <returns></returns>
-    static List<PlayerData> LoadPlayersFromDisk() {
-        List<PlayerData> Players = new List<PlayerData>() {
-             new PlayerData() { id = "Red" },
-             new PlayerData() { id = "Blue" }
-         };
-        //PlayerData[] allPlayer = Resources.LoadAll<PlayerData>("Players");
-        return Players;
-    }
-
- 
-
-
+    
     /// <summary>
     /// Setta le informazioni necessare per il round corrente.
     /// </summary>
@@ -99,26 +83,11 @@ public class GamePlayManager : MonoBehaviour {
                 playerD.PutCardsInHand(1);
             }
         }
-        foreach (PlayerData p in LoadPlayersFromDisk()) {
+        foreach (PlayerData p in Players) {
 			p.Mana = CurrentRound;
         }
     }
 
-    /// <summary>
-    /// Setta l'ordine dei giocatori durante i round.
-    /// </summary>
-    /// <returns></returns>
-    List<PlayerData> SetPlayersOrder()
-    {
-        List<PlayerData> pd = new List<PlayerData>();
-        int randomInd = Random.Range(0, Players.Count);
-        pd.Insert(0, Players[randomInd]);
-        Players.Remove(Players[randomInd]);
-        pd.Insert(1, Players[0]);
-        Players = pd;
-
-        return Players; 
-    }
     
 
     public void StrategicPhase(){

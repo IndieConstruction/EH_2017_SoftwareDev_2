@@ -35,11 +35,15 @@ public abstract class StateMachine : MonoBehaviour {
         if(CurrentState != null)
             CurrentState.End();
         CurrentState = _newState;
-        CurrentState.Start();
+        CurrentState.Start(this);
     }
 
     public virtual void Update() {
         if(CurrentState != null)
             CurrentState.Update();
     }
+    /// <summary>
+    /// Avvisa che lo stato attuale ha finito
+    /// </summary>
+    public virtual void NotifyTheStateIsOver() { }
 }

@@ -39,12 +39,12 @@ public class CardManager : MonoBehaviour {
         for (int i = 0; i < numberOfCards; i++) {
             int RandomInd = Random.Range(0, GetAllCards().Count);
             CardData newCard = GetAllCards()[RandomInd];
-            GamePlayManager.Instance.Players[0].Deck.Add(newCard);
+            GamePlayManager.I.Players[0].Deck.Add(newCard);
         }
         for (int i = 0; i < numberOfCards; i++) {
             int RandomInd = Random.Range(0, GetAllCards().Count);
             CardData newCard = GetAllCards()[RandomInd];
-            GamePlayManager.Instance.Players[1].Deck.Add(newCard);
+            GamePlayManager.I.Players[1].Deck.Add(newCard);
         }
     }
 

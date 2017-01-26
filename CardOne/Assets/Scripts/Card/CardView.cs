@@ -34,7 +34,7 @@ public class CardView : MonoBehaviour, IDropHandler, IDragHandler {
     /// </summary>
     /// <param name="_player"></param>
     public void AllocateCardToPlayer(PlayerData _player) {
-       playerView = GamePlayManager.Instance.GetPlayerViewFromData(_player);
+       playerView = GamePlayManager.I.GetPlayerViewFromData(_player);
        transform.SetParent(playerView.CardContainer, false);
     }
 

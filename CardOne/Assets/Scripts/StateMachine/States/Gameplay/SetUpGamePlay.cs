@@ -2,26 +2,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Stato che gestisce il Setup prima del GamePlay
+/// </summary>
 public class SetUpGamePlay : State {
 
+    #region Runtime Variables
+    /// <summary>
+    /// contiene i dati del livello corrente 
+    /// </summary>
     GameLevelData currentLevel;
+    #endregion
 
-    public override void Start() {
+    #region LifeCycle
+    public override void Start(StateMachine _stateMachine) {
+        base.Start(_stateMachine);
         SetupGameplay();
+        stateMachine.NotifyTheStateIsOver();
     }
     public override void Update() {
-        throw new NotImplementedException();
+
     }
     public override void End() {
-        throw new NotImplementedException();
-    }
+
+    } 
+    #endregion
+
+    #region Setups
     /// <summary>
     /// Esegue il setup del gameplay.
     /// </summary>
-    public void SetupGameplay() {
-        currentLevel = GetLevelInfo(CurrentLevelId);
-        CurrentRound = 1;
+    void SetupGameplay() {
+        currentLevel = GetLevelInfo(GamePlayManager.I.CurrentLevelId);
+        GamePlayManager.I.CurrentRound = 1;
         SetUpPlayers(currentLevel);
         SetUpBoard(currentLevel);
         SetUpCards(currentLevel);
@@ -31,27 +44,27 @@ public class SetUpGamePlay : State {
     /// </summary>
     void SetUpPlayers(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Players");
-        Players = LoadPlayersFromDisk();
+        GamePlayManager.I.Players = LoadPlayersFromDisk();
         // TODO: Limitare numero di player a 2.
-        Players.RemoveRange(2, Players.Count - 2);
+        GamePlayManager.I.Players.RemoveRange(2, GamePlayManager.I.Players.Count - 2);
         SetPlayersOrder();
         // Player 1 inizializzazione
-        PView1.Init(Players[0]);
-        Players[0].Mana = CurrentRound;
-        Players[0].Life = _gameLeveldata.PlayersStartLife;
+        GamePlayManager.I.PView1.Init(GamePlayManager.I.Players[0]);
+        GamePlayManager.I.Players[0].Mana = GamePlayManager.I.CurrentRound;
+        GamePlayManager.I.Players[0].Life = _gameLeveldata.PlayersStartLife;
 
         // Player 2 inizializzazione
-        PView2.Init(Players[1]);
-        Players[1].Mana = CurrentRound;
-        Players[1].Life = _gameLeveldata.PlayersStartLife;
+        GamePlayManager.I.PView2.Init(GamePlayManager.I.Players[1]);
+        GamePlayManager.I.Players[1].Mana = GamePlayManager.I.CurrentRound;
+        GamePlayManager.I.Players[1].Life = _gameLeveldata.PlayersStartLife;
     }
     /// <summary>
     /// Setta il tavolo
     /// </summary>
     void SetUpBoard(GameLevelData _gameLeveldata) {
         Debug.Log("Setup Board");
-        boardView.Init(_gameLeveldata.Board);
-        Debug.Log("il level data e" + _gameLeveldata.Id);
+        GamePlayManager.I.boardView.Init(_gameLeveldata.Board);
+        //Debug.Log("il level data e" + _gameLeveldata.Id);
 
     }
     /// <summary>
@@ -59,8 +72,13 @@ public class SetUpGamePlay : State {
     /// </summary>
     void SetUpCards(GameLevelData _gameLeveldata) {
         Debug.LogFormat("Setup Cards {0}", _gameLeveldata.AllCards.Count);
-        cm.GiveCardsToDecks(_gameLeveldata.StartNumberOfCardsInPlayerDeck);
+        GamePlayManager.I.cm.GiveCardsToDecks(_gameLeveldata.StartNumberOfCardsInPlayerDeck);
     }
+
+    #endregion
+
+    #region Functions
+
     /// <summary>
     /// Carica da disco le info del livello tramite l'id del livello,
     /// Operazione da seguire solo nella fase di setup
@@ -102,4 +120,33 @@ public class SetUpGamePlay : State {
 
         return returnGameLevel;
     }
+
+    /// <summary>
+    /// Legge tutti i players selezionabili in gioco.
+    /// </summary>
+    /// <returns></returns>
+    static List<PlayerData> LoadPlayersFromDisk() {
+        List<PlayerData> Players = new List<PlayerData>() {
+             new PlayerData() { id = "Red" },
+             new PlayerData() { id = "Blue" }
+         };
+        //PlayerData[] allPlayer = Resources.LoadAll<PlayerData>("Players");
+        return Players;
+    }
+
+    /// <summary>
+    /// Setta l'ordine dei giocatori durante i round.
+    /// </summary>
+    /// <returns></returns>
+    List<PlayerData> SetPlayersOrder() {
+        List<PlayerData> pd = new List<PlayerData>();
+        int randomInd = UnityEngine.Random.Range(0, GamePlayManager.I.Players.Count);
+        pd.Insert(0, GamePlayManager.I.Players[randomInd]);
+        GamePlayManager.I.Players.Remove(GamePlayManager.I.Players[randomInd]);
+        pd.Insert(1, GamePlayManager.I.Players[0]);
+        GamePlayManager.I.Players = pd;
+
+        return GamePlayManager.I.Players;
+    } 
+    #endregion
 }

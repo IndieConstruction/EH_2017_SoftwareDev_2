@@ -48,7 +48,7 @@ public class ColumnView : MonoBehaviour {
     }
 
     public void PlaceCard(CardView card) {
-        if (GamePlayManager.Instance.GetPlayerNumber(card.playerView.playerData) == 1) {
+        if (GamePlayManager.I.GetPlayerNumber(card.playerView.playerData) == 1) {
             //è una carta del player 1
             card.transform.SetParent(SlotP1);
             card.transform.localPosition = Vector2.zero;

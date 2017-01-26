@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class InGame : State {
 
-    public override void Start() {
-        TestSM.I.ShowPlayButton(false);
+   
+    public override void Start(StateMachine _stateMachine) {
+        base.Start(_stateMachine);
     }
-
     public override void Update() {
         Debug.Log("InGame Update");
     }
