@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SetupRoundState: StateBase {
+public class SetupRoundPhase: StateBase {
 
     public override void Start(StateMachineBase _stateMachine) {
         base.Start(_stateMachine);
