@@ -16,6 +16,8 @@ public class StrategicPhase : StateBase {
     public override void Start(StateMachineBase _stateMachine) {
         base.Start(_stateMachine);
         Debug.Log("StrategicPhase iniziata");
+        //funzioni
+        stateMachine.NotifyTheStateIsOver();
     }
 
     public override void Update() {

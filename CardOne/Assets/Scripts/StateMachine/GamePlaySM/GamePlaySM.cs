@@ -12,8 +12,6 @@ public class GamePlaySM : StateMachineBase {
             case "SetUpGamePlayState":
                 ChangeState(new InGameState());
                 break;
-            case "StrategicPhase":
-                break;
             default:
                 break;
         }

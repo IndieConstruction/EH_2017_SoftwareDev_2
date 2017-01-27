@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class CombatPhase : StateBase {
     public override void Start(StateMachineBase _stateMachine){
         base.Start(_stateMachine);
         Debug.Log("CombatPhase iniziata");
+        //funzioni
+        stateMachine.NotifyTheStateIsOver();
     }
 
     public override void Update(){

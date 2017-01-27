@@ -12,6 +12,8 @@ public class CheckPhase : StateBase {
     public override void Start(StateMachineBase _stateMachine){
         base.Start(_stateMachine);
         Debug.Log("CheckPhase iniziata");
+        //funzioni
+        stateMachine.NotifyTheStateIsOver();
     }
 
     public override void Update(){
