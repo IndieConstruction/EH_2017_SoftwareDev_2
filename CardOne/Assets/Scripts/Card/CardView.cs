@@ -17,6 +17,12 @@ public class CardView : MonoBehaviour, IDropHandler, IDragHandler {
     #region RunTime Variables
     ColumnView columnCollision;
     #endregion
+    #region Events
+    public delegate void CardEvent(CardView _cardView);
+
+    public static CardEvent OnDragCard;
+    public static CardEvent OnDropCard;
+    #endregion
     private void Start() {
         
     }
@@ -36,6 +42,7 @@ public class CardView : MonoBehaviour, IDropHandler, IDragHandler {
     public void AllocateCardToPlayer(PlayerData _player) {
        playerView = GamePlayManager.I.GetPlayerViewFromData(_player);
        transform.SetParent(playerView.CardContainer, false);
+    
     }
 
 
@@ -51,18 +58,37 @@ public class CardView : MonoBehaviour, IDropHandler, IDragHandler {
         //ImageToLoad.sprite = c.CardSprite;   
     }
 
+    #region Drop
     public void OnDrop(PointerEventData eventData) {
+        if (OnDropCard != null)
+        OnDropCard(this);
+    }
+    public void DoDrop() {
         if (columnCollision != null) {
 
-            columnCollision.PlaceCard(this);
+            columnCollision.PlaceCard(this, playerView.playerData);
         }
     }
+    #endregion
 
+    #region Drag
     public void OnDrag(PointerEventData eventData) {
-        //Debug.Log("OnDrag");
-        transform.position = Input.mousePosition;
+        if (OnDragCard != null)
+        OnDragCard(this);
+
     }
 
+    public void DoDrag() {
+        transform.position = Input.mousePosition;
+    }
+    #endregion
+
+    #region Collisioni
+
+    /// <summary>
+    /// se la carta collide con una colonna riempie la variabile columnCollision
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision) {
         ColumnView col = collision.GetComponent<ColumnView>();
         if (col != null) {
@@ -70,13 +96,19 @@ public class CardView : MonoBehaviour, IDropHandler, IDragHandler {
             col.Highlight(true);
         }
     }
+    /// <summary>
+    /// se la carta non collide più con la colonna, mette a null la variabile columnCollision
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerExit2D(Collider2D collision) {
         ColumnView col = collision.GetComponent<ColumnView>();
         if (col != null) {
             columnCollision = null;
             col.Highlight(false);
         }
-    }
+    } 
+    #endregion
+
 }
 
 

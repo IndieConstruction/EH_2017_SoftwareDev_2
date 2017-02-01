@@ -44,6 +44,7 @@ public class PlayerData{
     /// </summary>
     [HideInInspector]
     public List<CardData> CardDataInHand = new List<CardData>();
+    public List<CardData> CardsOnBoard = new List<CardData>();
     #endregion
     /// <summary>
     /// mette le carte in CardsInHand e le toglie da Deck

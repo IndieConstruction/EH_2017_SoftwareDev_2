@@ -41,59 +41,6 @@ public class GamePlayManager : MonoBehaviour {
         cm = FindObjectOfType<CardManager>();
 	}
 
-    #region Flow
-
-    void Start() {
-       // GameplayFlow();
-    }
-
-    private void Update() {
-       // Debug.Log("Debug Update");
-    }
-
-
-
-    /// <summary>
-    /// Gestisce il flow del gameplay.
-    /// </summary>
-    //GameLevelData currentLevel;
-    //public void GameplayFlow() {
-    //    bool endGame = false;
-    //  //  while (!endGame) {
-    //        SetUpRound(CurrentRound, currentLevel);
-    //        // Gameplay
-    //        CurrentRound++;
-    //        if (CurrentRound == 5)
-    //            endGame = true;
-       // }
-
-    
-
-    #endregion
-
-    #region functions
-    
-
-
-    
-
-    public void StrategicPhase(){
-	
-		//if (gpm.Players().MyTurn)
-		//{
-		//	gpm.Players[0].MyTurn = false;
-		//	gpm.Players[1].MyTurn = true;
-
-		//}
-		//else if (gpm.Players[1].MyTurn)
-		//{
-		//	gpm.Players[1].MyTurn = false;
-		//	gpm.Players[0].MyTurn = true;
-		//}
-
-	}
-
-    #endregion
     
     #region API
 
@@ -118,6 +65,49 @@ public class GamePlayManager : MonoBehaviour {
             return 1;
         else
             return 2;
+    }
+   /// <summary>
+   /// Restituisce una lista di carte per la colonna indicata
+   /// </summary>
+   /// <param name="idColumn"></param>
+   /// <returns></returns>
+    public List<CardData> GetCardsInColumn(int idColumn) {
+       return boardView.Data.ColumnList[idColumn].cards;
+
+    }
+    /// <summary>
+    /// restituisce il numero di colonne attive nella fase di gioco
+    /// </summary>
+    /// <returns></returns>
+    public int GetNumberOfColumns() {
+        return boardView.Data.ColumnList.Count;
+    }
+    /// <summary>
+    /// Restituisce il player a cui appartiene la carta indicata
+    /// </summary>
+    /// <param name="card"></param>
+    /// <returns></returns>
+    public PlayerData GetPlayerOwner(CardData card) {
+        foreach ( PlayerData p in players) {
+            foreach (CardData c in p.CardsOnBoard) {
+                if (card == c) {
+                    return p;
+                }
+            }
+        }
+        return null;
+    }
+    /// <summary>
+    /// Restituisce l'altro player se gli si passa come parametro un player
+    /// </summary>
+    /// <param name="_player"></param>
+    /// <returns></returns>
+    public PlayerData GetOherPlayer (PlayerData _player) {
+        foreach (PlayerData p in players) {
+            if (p != _player)
+                return p;
+        }
+        return null;
     }
     #endregion
 

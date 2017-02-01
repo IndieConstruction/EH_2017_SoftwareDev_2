@@ -12,12 +12,15 @@ using UnityEngine;
 /// 6 - Bisogna avere un flag per ogni player per far capire che ha finito la sua fase strategica
 /// </summary>
 public class StrategicPhase : StateBase {
-
+    int CurrentPlayerIndex = 0;
     public override void Start(StateMachineBase _stateMachine) {
         base.Start(_stateMachine);
+        CardView.OnDragCard += OnDrag;
+        CardView.OnDropCard += OnDrop;
+        CurrentPlayerIndex = 0;
         Debug.Log("StrategicPhase iniziata");
         //funzioni
-        stateMachine.NotifyTheStateIsOver();
+        
     }
 
     public override void Update() {
@@ -25,8 +28,30 @@ public class StrategicPhase : StateBase {
     }
 
     public override void End() {
-    
+        CardView.OnDragCard -= OnDrag;
+        CardView.OnDropCard -= OnDrop;
     }
+    /// <summary>
+    /// Contiene le regole per permettere il drag al player attivo
+    /// </summary>
+    /// <param name="card"></param>
+    void OnDrag(CardView card) {
+        
+        if (card.playerView.playerData == GamePlayManager.I.Players[CurrentPlayerIndex]) {
+            card.DoDrag();
+        }
+        
+    }
+    void OnDrop(CardView card) {
+        if (card.playerView.playerData == GamePlayManager.I.Players[CurrentPlayerIndex]) {
+            card.DoDrop();
+        }
+    }
+    public void GoToNextStep() {
 
-    
+        CurrentPlayerIndex++;
+        if (CurrentPlayerIndex > GamePlayManager.I.Players.Count -1) {
+            stateMachine.NotifyTheStateIsOver();
+        }
+    }
 }
