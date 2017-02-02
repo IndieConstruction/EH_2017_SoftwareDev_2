@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class GamePlayManager : MonoBehaviour {
+    
 
     #region variables
     public string CurrentLevelId = "1.1";
@@ -55,26 +56,30 @@ public class GamePlayManager : MonoBehaviour {
         else
             return PView2;
     }
+
     /// <summary>
     /// Restituisce 1 se il parametro è riferito al player1, 2 se è riferito al player2
     /// </summary>
     /// <param name="_playerData"></param>
     /// <returns></returns>
+    /// 
     public int GetPlayerNumber(PlayerData _playerData) {
         if (_playerData.id == Players[0].id)
             return 1;
         else
             return 2;
     }
-   /// <summary>
+
+    /// <summary>
    /// Restituisce una lista di carte per la colonna indicata
    /// </summary>
    /// <param name="idColumn"></param>
    /// <returns></returns>
     public List<CardData> GetCardsInColumn(int idColumn) {
-       return boardView.Data.ColumnList[idColumn].cards;
-
+       return boardView.ColsView[idColumn].data.cards;
+       //return boardView.Data.ColumnList[idColumn].cards;
     }
+
     /// <summary>
     /// restituisce il numero di colonne attive nella fase di gioco
     /// </summary>
@@ -82,8 +87,9 @@ public class GamePlayManager : MonoBehaviour {
     public int GetNumberOfColumns() {
         return boardView.Data.ColumnList.Count;
     }
+
     /// <summary>
-    /// Restituisce il player a cui appartiene la carta indicata
+    /// Restituisce il player a cui appartiene la carta sul tavolo indicata
     /// </summary>
     /// <param name="card"></param>
     /// <returns></returns>
@@ -97,18 +103,20 @@ public class GamePlayManager : MonoBehaviour {
         }
         return null;
     }
+
     /// <summary>
-    /// Restituisce l'altro player se gli si passa come parametro un player
+    /// Dato un player, restituisce l'altro
     /// </summary>
     /// <param name="_player"></param>
     /// <returns></returns>
-    public PlayerData GetOherPlayer (PlayerData _player) {
+    public PlayerData GetOtherPlayer (PlayerData _player) {
         foreach (PlayerData p in players) {
             if (p != _player)
                 return p;
         }
         return null;
     }
+
     #endregion
 
 

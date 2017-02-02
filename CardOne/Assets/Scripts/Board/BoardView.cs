@@ -14,8 +14,12 @@ public class BoardView : MonoBehaviour{
 
 
     public void Init(BoardData _boardData){
-        Data = _boardData;
-        InitGraphic(_boardData);
+        List<ColumnData> newInstanceOfColums = new List<ColumnData>();
+        foreach (ColumnData cData in _boardData.ColumnList) {
+            newInstanceOfColums.Add(new ColumnData() { cards = cData.cards, terrainType = cData.terrainType });
+        }
+        Data = new BoardData (){ColumnList = newInstanceOfColums };
+        InitGraphic(Data);
 
     }
     public void InitGraphic(BoardData _boardData) {

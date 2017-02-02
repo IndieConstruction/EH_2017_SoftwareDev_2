@@ -23,6 +23,19 @@ public class CardView : MonoBehaviour, IDropHandler, IDragHandler {
     public static CardEvent OnDragCard;
     public static CardEvent OnDropCard;
     #endregion
+
+    private void OnEnable() {
+        StateMachineBase.OnStateChanged += OnStateChanged;
+    }
+
+    private void OnStateChanged() {
+        UpdateGraphic(Data);
+    }
+
+    private void OnDisable() {
+
+    }
+
     private void Start() {
         
     }
@@ -72,12 +85,18 @@ public class CardView : MonoBehaviour, IDropHandler, IDragHandler {
     #endregion
 
     #region Drag
+    /// <summary>
+    /// funzione che viene chiamata quando si tenta di fare un drag
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnDrag(PointerEventData eventData) {
         if (OnDragCard != null)
         OnDragCard(this);
 
     }
-
+    /// <summary>
+    /// la carta segue il mouse
+    /// </summary>
     public void DoDrag() {
         transform.position = Input.mousePosition;
     }
@@ -106,9 +125,11 @@ public class CardView : MonoBehaviour, IDropHandler, IDragHandler {
             columnCollision = null;
             col.Highlight(false);
         }
-    } 
+    }
     #endregion
-
+    private void Update() {
+        UpdateGraphic(Data);
+    }
 }
 
 

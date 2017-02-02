@@ -6,6 +6,7 @@ using UnityEngine.UI;
 /// State Machine che gestisce le fasi di gioco
 /// </summary>
 public class InGameSM : StateMachineBase {
+  
     Button next;
 	// Use this for initialization
 	void Start () {

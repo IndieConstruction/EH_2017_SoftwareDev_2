@@ -6,7 +6,11 @@ using UnityEngine;
 /// Classe base da estendere per creare una macchina Stati finiti.
 /// </summary>
 public abstract class StateMachineBase : MonoBehaviour {
+    #region Events
+    public delegate void StateMachineEvent();
 
+    public static StateMachineEvent OnStateChanged;
+    #endregion
     private List<StateBase> states;
     /// <summary>
     /// Elenco degli stati della state machine.
@@ -36,6 +40,8 @@ public abstract class StateMachineBase : MonoBehaviour {
             CurrentState.End();
         CurrentState = _newState;
         CurrentState.Start(this);
+        if (OnStateChanged != null)
+            OnStateChanged();
     }
 
     public virtual void Update() {

@@ -16,8 +16,23 @@ public class CardManager : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public static List<CardData> GetAllCards() {
-        CardData[] allCards = Resources.LoadAll<CardData>("Cards");
-        return allCards.ToList<CardData>();
+        CardData[] allCardsfromResources = Resources.LoadAll<CardData>("Cards");
+        List<CardData> newCardList = new List<CardData>();
+        foreach (CardData cardPointer in allCardsfromResources) {
+            newCardList.Add(new CardData {
+
+                ID = cardPointer.ID,
+                Attack = cardPointer.Attack,
+                Life = cardPointer.Life,
+                Type = cardPointer.Type,
+                CardSprite = cardPointer.CardSprite,
+                ManaCost = cardPointer.ManaCost,
+                SlotType = cardPointer.SlotType,
+
+            }
+            );
+        }
+        return allCardsfromResources.ToList<CardData>();
         // Vecchio sistema con creazione manuale dei dati.
         //return new List<CardData>() {
         //    new CardData() { ID = "Monster1", ManaCost = 1, Type = CardType.Base, SlotType = Slot.Terrain, Life = 1, Attack = 1 },

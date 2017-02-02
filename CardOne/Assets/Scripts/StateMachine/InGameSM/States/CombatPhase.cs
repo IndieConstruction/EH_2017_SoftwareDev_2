@@ -20,23 +20,25 @@ public class CombatPhase : StateBase {
             List<CardData> cards =GamePlayManager.I.GetCardsInColumn(i);
             switch (cards.Count) {
                 case 0:
-                    return;
+                    break;
 
                 case 1:
-                    //rendere più leggibile, prende l'altro player e sottrae alla sua vita l'attacco della carta giocata
-                    GamePlayManager.I.GetOherPlayer(GamePlayManager.I.GetPlayerOwner(cards[0])).Life -= cards[0].Attack;
+                    //Prende l'altro player e sottrae alla sua vita  il valore dell'attacco della carta giocata
+                    GamePlayManager.I.GetOtherPlayer(GamePlayManager.I.GetPlayerOwner(cards[0])).Life -= cards[0].Attack;
                    
                     break;
                 case 2:
-                    // se sono di due player diversi fa il combattimento tra le due carte
-                    //se sono dello stesso player sottrae vita all'altro eroe per ogni carta
-
+                    //  fa il combattimento tra le due carte
+                    cards[0].Life -= cards[1].Attack;
+                    cards[1].Life -= cards[0].Attack;
+                    
                     break;
                     
                 default:
                     break;
             }
         }
+        stateMachine.NotifyTheStateIsOver();
     }
 
     public override void Update(){

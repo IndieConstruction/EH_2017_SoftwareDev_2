@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ColumnView : MonoBehaviour {
 
     #region Runtime variables
-    ColumnData data; 
+    public ColumnData data; 
     #endregion
 
     #region Public Variables
@@ -18,7 +18,7 @@ public class ColumnView : MonoBehaviour {
     /// inizializzazione del componente
     /// </summary>
     public void Init(ColumnData _data) {
-        data = _data;
+        data = new ColumnData() { cards = new List<CardData>(), terrainType = _data.terrainType };
         switch (data.terrainType) {
             case TerrainTypes.Empty:
                 BackgroundSprite.sprite = Resources.Load<Sprite>("Empty");
