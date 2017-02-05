@@ -30,6 +30,10 @@ public class CardView : MonoBehaviour, IDropHandler, IDragHandler {
 
     private void OnStateChanged() {
         UpdateGraphic(Data);
+        if (Data.Life <= 0)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     private void OnDisable() {
@@ -65,10 +69,13 @@ public class CardView : MonoBehaviour, IDropHandler, IDragHandler {
     /// <param name="c"></param>
     public void UpdateGraphic(CardData c)
     {
-        gameObject.GetComponentsInChildren<Text>()[0].text = c.Life.ToString();
-        gameObject.GetComponentsInChildren<Text>()[1].text = c.Attack.ToString();
-        gameObject.GetComponentsInChildren<Text>()[2].text = c.ManaCost.ToString();
-        //ImageToLoad.sprite = c.CardSprite;   
+        if (c != null)
+        {
+            gameObject.GetComponentsInChildren<Text>()[0].text = c.Life.ToString();
+            gameObject.GetComponentsInChildren<Text>()[1].text = c.Attack.ToString();
+            gameObject.GetComponentsInChildren<Text>()[2].text = c.ManaCost.ToString();
+            //ImageToLoad.sprite = c.CardSprite;   
+        } 
     }
 
     #region Drop

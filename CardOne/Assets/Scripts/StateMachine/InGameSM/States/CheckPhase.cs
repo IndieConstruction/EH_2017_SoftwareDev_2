@@ -12,12 +12,29 @@ public class CheckPhase : StateBase {
     public override void Start(StateMachineBase _stateMachine){
         base.Start(_stateMachine);
         Debug.Log("CheckPhase iniziata");
-        //funzioni
-        stateMachine.NotifyTheStateIsOver();
+        //RestartGameplay();
     }
 
     public override void Update(){
     }
     public override void End(){
+    }
+
+    /// <summary>
+    /// Fa ripartire le fasi se entrambi i Player hanno vita.
+    /// </summary>
+    public void RestartGameplay() {
+        foreach (PlayerData _playerData in GamePlayManager.I.Players)
+        {
+            if (_playerData.Life > 0)
+            {
+                stateMachine.NotifyTheStateIsOver();
+            }
+            else
+            {
+                Debug.Log("GameOverState");
+                
+            }
+        }
     }
 }

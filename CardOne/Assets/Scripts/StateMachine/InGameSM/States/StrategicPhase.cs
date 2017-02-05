@@ -18,9 +18,7 @@ public class StrategicPhase : StateBase {
         CardView.OnDragCard += OnDrag;
         CardView.OnDropCard += OnDrop;
         CurrentPlayerIndex = 0;
-        Debug.Log("StrategicPhase iniziata");
-        //funzioni
-        
+        Debug.Log("StrategicPhase iniziata");  
     }
 
     public override void Update() {

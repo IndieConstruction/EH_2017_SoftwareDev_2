@@ -18,7 +18,9 @@ public class InGameSM : StateMachineBase {
         }
         if (next)
             next.onClick.AddListener(() => EndStrategic());
-	}
+        //if (next)
+           next.onClick.AddListener(() => EndCheck());
+    }
 
     public override void NotifyTheStateIsOver() {
         switch (CurrentState.GetType().Name) {
@@ -32,7 +34,7 @@ public class InGameSM : StateMachineBase {
                 ChangeState(new CheckPhase());
                 break;
             case "CheckPhase":
-                
+                ChangeState(new SetupRoundPhase());
                 break;
             default:
                 break;
@@ -47,6 +49,20 @@ public class InGameSM : StateMachineBase {
             tempStrategic.GoToNextStep();
         }
     }
+    /// <summary>
+    /// chiamata quando vierne premuto il bottone, fa terminare la check phase
+    /// Non ha senso averlo,ma senno andava in loop continuo
+    /// </summary>
+    public void EndCheck()
+    {
+        if (CurrentState.GetType().Name == "CheckPhase")
+        {
+            CheckPhase tempCheckPhase = CurrentState as CheckPhase;
+            tempCheckPhase.RestartGameplay();
+        }
+    }
+
+
     private void OnDestroy() {
         if (next)
             next.onClick.RemoveAllListeners();

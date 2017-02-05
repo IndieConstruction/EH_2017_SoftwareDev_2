@@ -16,7 +16,7 @@ public class SetupRoundPhase: StateBase {
     }
 
     public override void End() {
-        
+        GamePlayManager.I.CurrentRound++;
     }
 
     /// <summary>
@@ -36,5 +36,6 @@ public class SetupRoundPhase: StateBase {
         foreach (PlayerData p in GamePlayManager.I.Players) {
             p.Mana = GamePlayManager.I.CurrentRound;
         }
+        
     }
 }
