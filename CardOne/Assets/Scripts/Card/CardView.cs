@@ -8,13 +8,14 @@ using System;
 /// <summary>
 /// Fa tutte le cose che servono a visualizzare i dati nella carta.
 /// </summary>
-public class CardView : MonoBehaviour, IDropHandler, IDragHandler {
+public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHandler{
     #region Public Variables
     public CardData Data;
     public SpriteRenderer ImageToLoad;
     public PlayerView playerView;
     #endregion
     #region RunTime Variables
+    Transform parentToReturnTo = null;
     ColumnView columnCollision;
     #endregion
     #region Events
@@ -87,11 +88,21 @@ public class CardView : MonoBehaviour, IDropHandler, IDragHandler {
         if (columnCollision != null) {
 
             columnCollision.PlaceCard(this, playerView.playerData);
+            parentToReturnTo = null;
+        }
+        else
+        {
+            this.transform.SetParent(parentToReturnTo);
         }
     }
     #endregion
 
     #region Drag
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        parentToReturnTo = this.transform.parent;
+        this.transform.SetParent(this.transform.parent.parent);
+    }
     /// <summary>
     /// funzione che viene chiamata quando si tenta di fare un drag
     /// </summary>
@@ -107,6 +118,8 @@ public class CardView : MonoBehaviour, IDropHandler, IDragHandler {
     public void DoDrag() {
         transform.position = Input.mousePosition;
     }
+
+   
     #endregion
 
     #region Collisioni
