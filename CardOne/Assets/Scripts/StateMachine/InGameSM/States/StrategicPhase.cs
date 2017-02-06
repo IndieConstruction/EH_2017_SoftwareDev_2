@@ -43,6 +43,8 @@ public class StrategicPhase : StateBase {
     void OnDrop(CardView card) {
         if (card.playerView.playerData == GamePlayManager.I.Players[CurrentPlayerIndex]) {
             card.DoDrop();
+          
+            card.playerView.playerData.Mana -= card.Data.ManaCost;
         }
     }
     public void GoToNextStep() {

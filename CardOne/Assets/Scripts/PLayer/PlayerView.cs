@@ -10,6 +10,14 @@ public class PlayerView : MonoBehaviour {
     public PlayerData playerData;
 
     public void Init(PlayerData _playerData){
+        //playerData = new PlayerData {
+        //    CardDataInHand = _playerData.CardDataInHand,
+        //    CardsOnBoard = _playerData.CardsOnBoard,
+        //    Deck = _playerData.Deck,
+        //    id = _playerData.id,
+        //    PlayerImage = _playerData.PlayerImage,
+        //    OnDataChanged = _playerData.OnDataChanged,
+        //};
         playerData = _playerData;
         playerData.OnDataChanged = null;
         playerData.OnDataChanged += dataChanged;
@@ -36,7 +44,10 @@ public class PlayerView : MonoBehaviour {
     private void OnDisable() {
         if(playerData != null)
             playerData.OnDataChanged = null;
-    } 
+    }
     #endregion
-
+    private void Update()
+    {
+        UpdateGraphic(playerData);
+    }
 }
