@@ -35,7 +35,7 @@ public class StrategicPhase : StateBase {
     /// <param name="card"></param>
     void OnDrag(CardView card) {
         
-        if (card.playerView.playerData == GamePlayManager.I.Players[CurrentPlayerIndex]) {
+        if (card.playerView.playerData == GamePlayManager.I.Players[CurrentPlayerIndex] ) {
             card.DoDrag();
         }
         
@@ -44,7 +44,7 @@ public class StrategicPhase : StateBase {
         if (card.playerView.playerData == GamePlayManager.I.Players[CurrentPlayerIndex]) {
             card.DoDrop();
           
-            card.playerView.playerData.Mana -= card.Data.ManaCost;
+           
         }
     }
     public void GoToNextStep() {

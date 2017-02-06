@@ -85,14 +85,16 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHan
         OnDropCard(this);
     }
     public void DoDrop() {
-        if (columnCollision != null) {
+        if (columnCollision != null && playerView.playerData.Mana >= Data.ManaCost) {
 
             columnCollision.PlaceCard(this, playerView.playerData);
             parentToReturnTo = null;
+            playerView.playerData.Mana -= Data.ManaCost;
         }
         else
         {
             this.transform.SetParent(parentToReturnTo);
+
         }
     }
     #endregion
@@ -148,7 +150,7 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHan
     }
     #endregion
     private void Update() {
-        UpdateGraphic(Data);
+       // UpdateGraphic(Data);
     }
 }
 
