@@ -7,10 +7,22 @@ using UnityEngine;
 /// </summary>
 public abstract class StateMachineBase : MonoBehaviour {
     #region Events
+    /// <summary>
+    /// Evento che comunica il cambio dello stato di questa SM.
+    /// </summary>
     public delegate void StateMachineEvent();
 
     public static StateMachineEvent OnStateChanged;
     #endregion
+    /// <summary>
+    /// Contiene la SMparent, se è vuota, non ho nessun SMparent.
+    /// </summary>
+    private StateMachineBase _parentSm;
+    public StateMachineBase ParentSM {
+        get { return _parentSm; }
+        set { _parentSm = value; }
+    }
+
     private List<StateBase> states;
     /// <summary>
     /// Elenco degli stati della state machine.
@@ -52,4 +64,12 @@ public abstract class StateMachineBase : MonoBehaviour {
     /// Avvisa che lo stato attuale ha finito
     /// </summary>
     public virtual void NotifyTheStateIsOver() { }
+
+   /// <summary>
+   /// Innesta una SM con parent a questa SM.
+   /// </summary>
+    public void CreateNestedSM<T>() where T : StateMachineBase {
+        T component = gameObject.AddComponent<T>();
+        component.ParentSM = this;
+    }
 }

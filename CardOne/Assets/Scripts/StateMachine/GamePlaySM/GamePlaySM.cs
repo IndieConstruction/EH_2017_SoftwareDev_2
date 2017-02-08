@@ -16,4 +16,8 @@ public class GamePlaySM : StateMachineBase {
                 break;
         }
     }
+
+    public void DestroyNestedSM(StateMachineBase _stateMachineToDestroy) {
+        Destroy(_stateMachineToDestroy);
+    }
 }

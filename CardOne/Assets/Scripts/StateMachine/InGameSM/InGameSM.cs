@@ -68,4 +68,8 @@ public class InGameSM : StateMachineBase {
             next.onClick.RemoveAllListeners();
         
     }
+
+    public void PlayerIsDead(PlayerData _playerData) {
+       // ChangeState(new )); 
+    }
 }

@@ -22,6 +22,7 @@ public class CheckPhase : StateBase {
 
     /// <summary>
     /// Fa ripartire le fasi se entrambi i Player hanno vita.
+    /// 
     /// </summary>
     public void RestartGameplay() {
         foreach (PlayerData _playerData in GamePlayManager.I.Players)
@@ -32,8 +33,9 @@ public class CheckPhase : StateBase {
             }
             else
             {
-                Debug.Log("GameOverState");
-                
+                //Debug.Log("GameOverState");
+                GamePlaySM gp = stateMachine.ParentSM as GamePlaySM;
+                gp.DestroyNestedSM(stateMachine);
             }
         }
     }
