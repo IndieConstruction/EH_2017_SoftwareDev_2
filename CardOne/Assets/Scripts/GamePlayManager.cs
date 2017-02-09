@@ -56,6 +56,21 @@ public class GamePlayManager : MonoBehaviour {
         else
             return PView2;
     }
+    
+    /// <summary>
+    /// Restituisce la view della carta passata come paramentro
+    /// </summary>
+    /// <param name="_cardData"></param>
+    /// <returns></returns>
+    public CardView GetCardViewFromData (CardData _cardData) {
+        CardView[] cardsInScene = FindObjectsOfType<CardView>();
+        foreach (CardView c in cardsInScene) {
+            if (c.Data == _cardData) {
+                return c;
+            }
+        }
+        return null;
+    }
 
     /// <summary>
     /// Restituisce 1 se il parametro è riferito al player1, 2 se è riferito al player2

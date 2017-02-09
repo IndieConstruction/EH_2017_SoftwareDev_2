@@ -63,7 +63,39 @@ public class CardManager : MonoBehaviour {
         }
     }
 
-    
-    
+    /// <summary>
+    /// Restituisce una lista di tutte le carte sulla board
+    /// </summary>
+    public List<CardData> GetAllCardsFromBoard() {
+        List<CardData> ReturnList = new List<CardData>();
+        foreach (PlayerData p in GamePlayManager.I.Players) {
+            ReturnList.AddRange(p.CardsOnBoard);
+        }
+        return ReturnList;
+    }
+
+    /// <summary>
+    /// toglie cardToMove da oldDeck e la aggiunge a newDeck
+    /// </summary>
+    /// <param name="cardToMove"></param>
+    /// <param name="oldDeck"></param>
+    /// <param name="newDeck"></param>
+    void SwitchDeck (CardData cardToMove, List<CardData> oldDeck, List<CardData> newDeck) {
+        if (oldDeck.Exists(c => c == cardToMove))
+            oldDeck.Remove(cardToMove);
+
+        newDeck.Add(cardToMove);
+    }
+
+    /// <summary>
+    /// Toglie una carta dalla board e la mette nel contenitore di carte scartate
+    /// </summary>
+    /// <param name="cardToDestroy"></param>
+    /// <param name="playerOwner"></param>
+    public void DestroyCardOnBoard(CardData cardToDestroy) {
+        SwitchDeck(cardToDestroy, GamePlayManager.I.GetPlayerOwner(cardToDestroy).CardsOnBoard, GamePlayManager.I.GetPlayerOwner(cardToDestroy).CardsDiscarted);
+        if (GamePlayManager.I.GetCardViewFromData(cardToDestroy) != null)
+            Destroy(GamePlayManager.I.GetCardViewFromData(cardToDestroy));
+    }
 }
 

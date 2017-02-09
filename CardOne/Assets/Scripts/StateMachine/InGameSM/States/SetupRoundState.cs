@@ -8,6 +8,7 @@ public class SetupRoundPhase: StateBase {
     public override void Start(StateMachineBase _stateMachine) {
         base.Start(_stateMachine);
         SetUpRound(GamePlayManager.I.CurrentRound,GamePlayManager.I.currentLevel);
+        CheckLifeCards();
         stateMachine.NotifyTheStateIsOver();
     }
 
@@ -35,6 +36,18 @@ public class SetupRoundPhase: StateBase {
         }
         foreach (PlayerData p in GamePlayManager.I.Players) {
             p.Mana = GamePlayManager.I.CurrentRound;
+        }
+        
+    }
+
+    /// <summary>
+    /// controlla se c'è qualche carta con vita 0 e la rimuove dal tavolo 
+    /// </summary>
+    void CheckLifeCards() {
+        foreach (CardData c in GamePlayManager.I.cm.GetAllCardsFromBoard()) {
+            if (c.Life < 1) {
+                GamePlayManager.I.cm.DestroyCardOnBoard(c);
+            }
         }
         
     }
