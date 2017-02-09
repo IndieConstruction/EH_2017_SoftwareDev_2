@@ -15,6 +15,7 @@ public class StrategicPhase : StateBase {
     int CurrentPlayerIndex = 0;
     public override void Start(StateMachineBase _stateMachine) {
         base.Start(_stateMachine);
+        CardView.OnBeginDragCard += OnBeginDrag;
         CardView.OnDragCard += OnDrag;
         CardView.OnDropCard += OnDrop;
         CurrentPlayerIndex = 0;
@@ -26,6 +27,7 @@ public class StrategicPhase : StateBase {
     }
 
     public override void End() {
+        CardView.OnBeginDragCard -= OnBeginDrag;
         CardView.OnDragCard -= OnDrag;
         CardView.OnDropCard -= OnDrop;
     }
@@ -52,6 +54,11 @@ public class StrategicPhase : StateBase {
         CurrentPlayerIndex++;
         if (CurrentPlayerIndex > GamePlayManager.I.Players.Count -1) {
             stateMachine.NotifyTheStateIsOver();
+        }
+    }
+    void OnBeginDrag(CardView card) {
+        if (card.playerView.playerData == GamePlayManager.I.Players[CurrentPlayerIndex]) {
+            card.DoBeginDrag();
         }
     }
 }

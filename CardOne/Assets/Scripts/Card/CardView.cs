@@ -21,6 +21,7 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHan
     #region Events
     public delegate void CardEvent(CardView _cardView);
 
+    public static CardEvent OnBeginDragCard;
     public static CardEvent OnDragCard;
     public static CardEvent OnDropCard;
     #endregion
@@ -102,8 +103,8 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHan
     #region Drag
     public void OnBeginDrag(PointerEventData eventData)
     {
-        parentToReturnTo = this.transform.parent;
-        this.transform.SetParent(this.transform.parent.parent);
+        if (OnBeginDragCard != null)
+            OnBeginDragCard(this);
     }
     /// <summary>
     /// funzione che viene chiamata quando si tenta di fare un drag
@@ -121,7 +122,10 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHan
         transform.position = Input.mousePosition;
     }
 
-   
+   public void DoBeginDrag() {
+        parentToReturnTo = this.transform.parent;
+        this.transform.SetParent(this.transform.parent.parent);
+    }
     #endregion
 
     #region Collisioni
