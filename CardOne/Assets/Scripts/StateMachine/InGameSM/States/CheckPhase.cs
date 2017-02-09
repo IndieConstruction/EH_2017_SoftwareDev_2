@@ -25,18 +25,28 @@ public class CheckPhase : StateBase {
     /// 
     /// </summary>
     public void RestartGameplay() {
-        foreach (PlayerData _playerData in GamePlayManager.I.Players)
-        {
-            if (_playerData.Life > 0)
-            {
-                stateMachine.NotifyTheStateIsOver();
-            }
-            else
-            {
-                //Debug.Log("GameOverState");
-                GamePlaySM gp = stateMachine.ParentSM as GamePlaySM;
-                gp.DestroyNestedSM(stateMachine);
-            }
+        if (GamePlayManager.I.Players[0].Life == 0) {
+            Debug.Log("GameOver Player 1");
+            return;
         }
+        if (GamePlayManager.I.Players[1].Life == 0) {
+            Debug.Log("GameOver Player 2");
+            return;
+        }
+        stateMachine.NotifyTheStateIsOver();
+
+        //foreach (PlayerData _playerData in GamePlayManager.I.Players)
+        //{
+        //    if (_playerData.Life > 0)
+        //    {
+        //        stateMachine.NotifyTheStateIsOver();
+        //    }
+        //    else
+        //    {
+        //        //Debug.Log("GameOverState");
+        //        GamePlaySM gp = stateMachine.ParentSM as GamePlaySM;
+        //        gp.DestroyNestedSM(stateMachine);
+        //    }
+        //}
     }
 }

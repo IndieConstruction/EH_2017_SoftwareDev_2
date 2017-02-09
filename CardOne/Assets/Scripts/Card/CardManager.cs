@@ -32,7 +32,7 @@ public class CardManager : MonoBehaviour {
             }
             );
         }
-        return allCardsfromResources.ToList<CardData>();
+        return newCardList;
         // Vecchio sistema con creazione manuale dei dati.
         //return new List<CardData>() {
         //    new CardData() { ID = "Monster1", ManaCost = 1, Type = CardType.Base, SlotType = Slot.Terrain, Life = 1, Attack = 1 },
