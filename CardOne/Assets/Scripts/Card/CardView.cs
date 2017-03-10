@@ -13,11 +13,9 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHan
     public CardData Data;
     public SpriteRenderer ImageToLoad;
     public PlayerView playerView;
-    
     #endregion
     #region RunTime Variables
     Transform parentToReturnTo = null;
-    Transform placeToReturtTo = null;
     ColumnView columnCollision;
     #endregion
     #region Events
@@ -82,70 +80,52 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHan
         } 
     }
 
-    
+    #region Drop
+    public void OnDrop(PointerEventData eventData) {
+        if (OnDropCard != null)
+        OnDropCard(this);
+    }
+    public void DoDrop() {
+        if (columnCollision != null && playerView.playerData.Mana >= Data.ManaCost) {
+
+            columnCollision.PlaceCard(this, playerView.playerData);
+            parentToReturnTo = null;
+            playerView.playerData.Mana -= Data.ManaCost;
+        }
+        else
+        {
+            this.transform.SetParent(parentToReturnTo);
+
+        }
+    }
+    #endregion
 
     #region Drag
-    #region OnBeginDrag
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (OnBeginDragCard != null)
             OnBeginDragCard(this);
     }
-  
-
-    public void DoBeginDrag()
-    {   
-        parentToReturnTo = this.transform.parent;
-        placeToReturtTo = GamePlayManager.I.PanelPosition;
-        this.transform.SetParent(placeToReturtTo);
-    }
-    #endregion
-
-    #region Drag
     /// <summary>
     /// funzione che viene chiamata quando si tenta di fare un drag
     /// </summary>
     /// <param name="eventData"></param>
-    public void OnDrag(PointerEventData eventData)
-    {
-            if (OnDragCard != null)
-            OnDragCard(this);
+    public void OnDrag(PointerEventData eventData) {
+        if (OnDragCard != null)
+        OnDragCard(this);
+
     }
     /// <summary>
     /// la carta segue il mouse
     /// </summary>
-    public void DoDrag()
-    {
-            transform.position = Input.mousePosition; 
+    public void DoDrag() {
+        transform.position = Input.mousePosition;
     }
-    #endregion
 
-    #region Drop
-    public void OnDrop(PointerEventData eventData)
-    {
-        if (OnDropCard != null)
-            OnDropCard(this);
+   public void DoBeginDrag() {
+        parentToReturnTo = this.transform.parent;
+        this.transform.SetParent(this.transform.parent.parent);
     }
-    public void DoDrop()
-    {
-        if (columnCollision != null && playerView.playerData.Mana >= Data.ManaCost)
-        {
-
-            columnCollision.PlaceCard(this, playerView.playerData);
-            parentToReturnTo = null;
-            placeToReturtTo = null;
-            playerView.playerData.Mana -= Data.ManaCost;
-        }
-        else
-        {
-            this.transform.SetParent(parentToReturnTo); 
-            parentToReturnTo = null;
-            placeToReturtTo = null;        
-        }
-       
-    }
-    #endregion
-
     #endregion
 
     #region Collisioni
@@ -173,7 +153,9 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHan
         }
     }
     #endregion
-    
+    private void Update() {
+       // UpdateGraphic(Data);
+    }
 }
 
 

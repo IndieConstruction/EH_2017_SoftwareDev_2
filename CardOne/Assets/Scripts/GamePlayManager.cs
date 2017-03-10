@@ -13,7 +13,6 @@ public class GamePlayManager : MonoBehaviour {
     /// contiene i dati del livello corrente 
     /// </summary>
     public GameLevelData currentLevel;
-    public Transform PanelPosition;
 
 
     public static GamePlayManager I;

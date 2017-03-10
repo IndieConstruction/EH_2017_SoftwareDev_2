@@ -35,15 +35,6 @@ public class StrategicPhase : StateBase {
     /// Contiene le regole per permettere il drag al player attivo
     /// </summary>
     /// <param name="card"></param>
-
-    void OnBeginDrag(CardView card)
-    {
-        if (card.playerView.playerData == GamePlayManager.I.Players[CurrentPlayerIndex])
-        {
-            card.DoBeginDrag();
-        }
-    }
-
     void OnDrag(CardView card) {
         
         if (card.playerView.playerData == GamePlayManager.I.Players[CurrentPlayerIndex] ) {
@@ -53,18 +44,21 @@ public class StrategicPhase : StateBase {
     }
     void OnDrop(CardView card) {
         if (card.playerView.playerData == GamePlayManager.I.Players[CurrentPlayerIndex]) {
-            card.DoDrop();  
+            card.DoDrop();
+          
+           
         }
     }
-    
-
-    public void GoToNextStep()
-    {
+    public void GoToNextStep() {
 
         CurrentPlayerIndex++;
-        if (CurrentPlayerIndex > GamePlayManager.I.Players.Count - 1)
-        {
+        if (CurrentPlayerIndex > GamePlayManager.I.Players.Count -1) {
             stateMachine.NotifyTheStateIsOver();
+        }
+    }
+    void OnBeginDrag(CardView card) {
+        if (card.playerView.playerData == GamePlayManager.I.Players[CurrentPlayerIndex]) {
+            card.DoBeginDrag();
         }
     }
 }
