@@ -131,7 +131,11 @@ public class GamePlayManager : MonoBehaviour {
         }
         return null;
     }
-
+    public List<CardView> GetCardsInScene()
+    {
+        List<CardView> cardsInScene = FindObjectsOfType<CardView>().ToList();
+        return cardsInScene;
+    }
     #endregion
 
 

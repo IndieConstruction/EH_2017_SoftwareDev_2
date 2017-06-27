@@ -33,8 +33,9 @@ public class CheckPhase : StateBase {
             Debug.Log("GameOver Player 2");
             return;
         }
-        stateMachine.NotifyTheStateIsOver();
 
+        stateMachine.NotifyTheStateIsOver();
+      
         //foreach (PlayerData _playerData in GamePlayManager.I.Players)
         //{
         //    if (_playerData.Life > 0)

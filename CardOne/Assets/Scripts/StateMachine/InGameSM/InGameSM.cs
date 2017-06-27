@@ -59,7 +59,13 @@ public class InGameSM : StateMachineBase {
         {
             CheckPhase tempCheckPhase = CurrentState as CheckPhase;
             tempCheckPhase.RestartGameplay();
+            foreach (CardView item in GamePlayManager.I.GetCardsInScene())
+            {
+                if (item.Data.Life <= 0)
+                    Destroy(item.gameObject);
+            }
         }
+     
     }
 
 
