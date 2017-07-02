@@ -27,6 +27,7 @@ public class PlayerData{
             if (OnDataChanged != null)
                 OnDataChanged();
             life = value;
+
         }
     } 
     #endregion

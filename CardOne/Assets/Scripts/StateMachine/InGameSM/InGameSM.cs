@@ -6,20 +6,29 @@ using UnityEngine.UI;
 /// State Machine che gestisce le fasi di gioco
 /// </summary>
 public class InGameSM : StateMachineBase {
-  
-    Button next;
+    StrategicPhase sp = new StrategicPhase();
+      Button next;
 	// Use this for initialization
 	void Start () {
+       
         ChangeState(new SetupRoundPhase());
         //Debug.Log("Partenza della InGameSM");
         foreach (Button b in FindObjectsOfType<Button>()) {
             if (b.name == "NextButton")
+            {
                 next = b;
+               
+            }
+                
         }
         if (next)
+        {
+            
             next.onClick.AddListener(() => EndStrategic());
+        }
+       
         //if (next)
-           next.onClick.AddListener(() => EndCheck());
+        next.onClick.AddListener(() => EndCheck());
     }
 
     public override void NotifyTheStateIsOver() {
@@ -43,8 +52,10 @@ public class InGameSM : StateMachineBase {
     /// <summary>
     /// chiamata quando viene premuto il bottone, indica che il player attivo ha finito la sua fase strategica
     /// </summary>
-    public void EndStrategic() {
-        if (CurrentState.GetType().Name == "StrategicPhase") {
+    public void EndStrategic()
+    {
+        if (CurrentState.GetType().Name == "StrategicPhase")
+        {
             StrategicPhase tempStrategic = CurrentState as StrategicPhase;
             tempStrategic.GoToNextStep();
         }
@@ -64,8 +75,21 @@ public class InGameSM : StateMachineBase {
                 if (item.Data.Life <= 0)
                     Destroy(item.gameObject);
             }
+            if (next.GetComponentInChildren<Text>())
+            {
+                next.GetComponentInChildren<Text>().text = "Turno";
+            }
         }
-     
+        if (GamePlayManager.I.Players[0].Life <= 0)
+        {
+            PlayerIsDead(GamePlayManager.I.Players[0]);
+            Debug.Log("GameOver Player 1");
+        }
+        if (GamePlayManager.I.Players[1].Life <= 0)
+        {
+            PlayerIsDead(GamePlayManager.I.Players[1]);
+            Debug.Log("GameOver Player 2");
+        }
     }
 
 
@@ -76,6 +100,6 @@ public class InGameSM : StateMachineBase {
     }
 
     public void PlayerIsDead(PlayerData _playerData) {
-       // ChangeState(new )); 
+        ChangeState(new GameOver());
     }
 }

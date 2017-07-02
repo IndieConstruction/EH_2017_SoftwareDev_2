@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GamePlayManager : MonoBehaviour {
-    
+
 
     #region variables
     public string CurrentLevelId = "1.1";
@@ -16,12 +18,24 @@ public class GamePlayManager : MonoBehaviour {
 
 
     public static GamePlayManager I;
-	public int CurrentRound ;
+    public int CurrentRound;
     /// <summary>
     /// Contiene il player attivo nella fase di gameplay.
     /// </summary>
 	PlayerData currentPlayer;
-    public CardManager cm;
+    [HideInInspector] public CardManager cm;
+
+    #region GameOverComponents
+    [Header("GameOverComponents")]
+    public GameObject GameOverComponent;
+    public Text PlayerOneEndGameText;
+    public Text PlayerTwoEndGameText;
+    public GameObject ButtonContainer;
+
+    public Button NextButton;
+    public Button Restart;
+    public Button ExitGame; 
+    #endregion
 
     private List<PlayerData> players;
     /// <summary>
@@ -40,7 +54,9 @@ public class GamePlayManager : MonoBehaviour {
         if (I == null)
             I = this;
         cm = FindObjectOfType<CardManager>();
-	}
+        NextButton.gameObject.GetComponent<Image>().color = Color.green;
+        CurrentIndex++;
+    }
 
     
     #region API
@@ -135,6 +151,28 @@ public class GamePlayManager : MonoBehaviour {
     {
         List<CardView> cardsInScene = FindObjectsOfType<CardView>().ToList();
         return cardsInScene;
+    }
+
+    public void OnClickRestart() {
+        SceneManager.LoadScene("GameScene");
+    }
+
+    public void OnClickExit() {
+        Application.Quit();
+    }
+    int CurrentIndex = 0;
+    public void ChangeColor() {
+        
+        if (CurrentIndex == 0)
+        {
+            NextButton.gameObject.GetComponent<Image>().color = Color.green;
+            CurrentIndex++;
+        }
+        else
+        {
+            NextButton.gameObject.GetComponent<Image>().color = Color.red;
+            CurrentIndex--;
+        }
     }
     #endregion
 

@@ -31,7 +31,10 @@ public class SetupRoundPhase: StateBase {
             }
         } else {
             foreach (PlayerData playerD in GamePlayManager.I.Players) {
-                playerD.PutCardsInHand(1);
+                if (playerD.CardDataInHand.Count<8)
+                {
+                    playerD.PutCardsInHand(1); 
+                }
             }
         }
         foreach (PlayerData p in GamePlayManager.I.Players) {

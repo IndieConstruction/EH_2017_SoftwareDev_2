@@ -17,6 +17,7 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHan
     #region RunTime Variables
     Transform parentToReturnTo = null;
     ColumnView columnCollision;
+    bool isDraggable;
     #endregion
     #region Events
     public delegate void CardEvent(CardView _cardView);
@@ -34,7 +35,10 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHan
         UpdateGraphic(Data);
         if (Data.Life <= 0)
         {
-            this.gameObject.SetActive(false);
+            if (this)
+            {
+                this.gameObject.SetActive(false); 
+            }
         }
     }
 
@@ -52,6 +56,7 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHan
     public void Init(CardData _cardData) {
         Data = _cardData;
         UpdateGraphic(_cardData);
+        isDraggable = true;
     }
 
     /// <summary>
@@ -73,9 +78,12 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHan
     {
         if (c != null)
         {
-            gameObject.GetComponentsInChildren<Text>()[0].text = c.Life.ToString();
-            gameObject.GetComponentsInChildren<Text>()[1].text = c.Attack.ToString();
-            gameObject.GetComponentsInChildren<Text>()[2].text = c.ManaCost.ToString();
+            if (this != null)
+            {
+                gameObject.GetComponentsInChildren<Text>()[0].text = c.Life.ToString();
+                gameObject.GetComponentsInChildren<Text>()[1].text = c.Attack.ToString();
+                gameObject.GetComponentsInChildren<Text>()[2].text = c.ManaCost.ToString(); 
+            }
             //ImageToLoad.sprite = c.CardSprite;   
         } 
     }
@@ -91,6 +99,7 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHan
             columnCollision.PlaceCard(this, playerView.playerData);
             parentToReturnTo = null;
             playerView.playerData.Mana -= Data.ManaCost;
+            isDraggable = false;
         }
         else
         {
@@ -119,12 +128,23 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDropHandler, IDragHan
     /// la carta segue il mouse
     /// </summary>
     public void DoDrag() {
-        transform.position = Input.mousePosition;
+        //if (columnCollision == null)
+        //{
+
+        if (isDraggable)
+        {
+            transform.position = Input.mousePosition;   
+        }
+       
+       // }
     }
 
    public void DoBeginDrag() {
-        parentToReturnTo = this.transform.parent;
-        this.transform.SetParent(this.transform.parent.parent);
+        if (isDraggable)
+        {
+            parentToReturnTo = this.transform.parent;
+            this.transform.SetParent(this.transform.parent.parent); 
+        }
     }
     #endregion
 
