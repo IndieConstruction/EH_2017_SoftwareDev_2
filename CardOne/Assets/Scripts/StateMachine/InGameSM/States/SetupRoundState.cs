@@ -52,6 +52,6 @@ public class SetupRoundPhase: StateBase {
                 GamePlayManager.I.cm.DestroyCardOnBoard(c);
             }
         }
-        
+       //TODO: CANCELLARE DALLA LISTA DI OGNI COLONNA LE CARTE
     }
 }
