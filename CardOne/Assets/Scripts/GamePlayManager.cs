@@ -111,6 +111,7 @@ public class GamePlayManager : MonoBehaviour {
        //return boardView.Data.ColumnList[idColumn].cards;
     }
 
+   
     /// <summary>
     /// restituisce il numero di colonne attive nella fase di gioco
     /// </summary>

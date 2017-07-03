@@ -47,11 +47,22 @@ public class SetupRoundPhase: StateBase {
     /// controlla se c'è qualche carta con vita 0 e la rimuove dal tavolo 
     /// </summary>
     void CheckLifeCards() {
+    
+        
         foreach (CardData c in GamePlayManager.I.cm.GetAllCardsFromBoard()) {
             if (c.Life < 1) {
+                foreach (var item in GamePlayManager.I.boardView.ColsView)
+                {
+                    if (item.data.cards.Contains(c))
+                    {
+                        item.data.cards.Remove(c); 
+                    }
+                }
                 GamePlayManager.I.cm.DestroyCardOnBoard(c);
+
             }
         }
+     
        //TODO: CANCELLARE DALLA LISTA DI OGNI COLONNA LE CARTE
     }
 }
